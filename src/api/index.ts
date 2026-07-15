@@ -1,9 +1,9 @@
 import axios from 'axios';
 import type { AnalyzeResponse, ReportResponse, OrderResponse, VerifyResponse } from '../types/report';
 
-// Vercel 上通过环境变量 VITE_API_URL 指向 Railway 后端
-// 本地开发时回退到 /api（走 vite proxy）
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+// Vercel 上通过环境变量 VITE_API_URL 指向 Render 后端
+// 本地开发时回退到空字符串（直接请求 /analyze 等路径）
+const API_BASE = import.meta.env.VITE_API_URL || '';
 const api = axios.create({ baseURL: API_BASE });
 
 export async function analyzeUrl(url: string): Promise<AnalyzeResponse> {
