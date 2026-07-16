@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createOrder, verifyPayment, simulatePay } from '../api';
+import { useI18n } from '../i18n';
 
 interface Props {
   reportId: string;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default function PaymentQR({ reportId, onPaymentSuccess, onBack }: Props) {
+  const { t } = useI18n();
   const [orderId, setOrderId] = useState('');
   const [amount, setAmount] = useState(0);
   const [status, setStatus] = useState<'loading' | 'pending' | 'paid' | 'error'>('loading');
@@ -38,7 +40,7 @@ export default function PaymentQR({ reportId, onPaymentSuccess, onBack }: Props)
       setAmount(res.amount_yuan);
       setStatus('pending');
     } catch (e: any) {
-      setError(e?.response?.data?.detail || '创建订单失败');
+      setError(e?.response?.data?.detail || t.payment.createOrderFail);
       setStatus('error');
     }
   }
@@ -49,7 +51,7 @@ export default function PaymentQR({ reportId, onPaymentSuccess, onBack }: Props)
       setStatus('paid');
       setTimeout(onPaymentSuccess, 1500);
     } catch (e: any) {
-      setError(e?.response?.data?.detail || '支付失败');
+      setError(e?.response?.data?.detail || t.payment.payFail);
     }
   }
 
@@ -72,8 +74,8 @@ export default function PaymentQR({ reportId, onPaymentSuccess, onBack }: Props)
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-green-600 mb-2">支付成功！</h3>
-        <p className="text-gray-500">正在跳转到完整报告...</p>
+        <h3 className="text-2xl font-bold text-green-600 mb-2">{t.payment.success}</h3>
+        <p className="text-gray-500">{t.payment.redirecting}</p>
       </div>
     );
   }
@@ -81,11 +83,11 @@ export default function PaymentQR({ reportId, onPaymentSuccess, onBack }: Props)
   return (
     <div className="max-w-lg mx-auto">
       <div className="bg-white rounded-2xl shadow-lg p-8">
-        <h2 className="text-xl font-bold text-gray-800 text-center mb-6">扫码支付解锁完整报告</h2>
+        <h2 className="text-xl font-bold text-gray-800 text-center mb-6">{t.payment.title}</h2>
 
         <div className="text-center mb-6">
           <div className="text-3xl font-bold text-blue-600 mb-1">¥{amount}</div>
-          <p className="text-sm text-gray-400">支付后即可查看完整 9 部分报告 + 下载 Word 版</p>
+          <p className="text-sm text-gray-400">{t.payment.amountHint}</p>
         </div>
 
         {/* 模拟二维码 */}
@@ -94,23 +96,23 @@ export default function PaymentQR({ reportId, onPaymentSuccess, onBack }: Props)
             <svg className="w-16 h-16 text-blue-600 mb-1" fill="currentColor" viewBox="0 0 24 24">
               <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm11 0h2v2h-2zm2 2h2v2h-2zm-2 2h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"/>
             </svg>
-            <span className="text-xs text-gray-400">微信 / 支付宝</span>
+            <span className="text-xs text-gray-400">{t.payment.qrWallets}</span>
           </div>
         </div>
 
         <p className="text-center text-sm text-gray-400 mb-6">
-          请使用微信或支付宝扫描二维码完成支付<br />
-          订单号：{orderId}
+          {t.payment.qrNote}<br />
+          {t.payment.orderPrefix}{orderId}
         </p>
 
         {/* 模拟支付按钮 */}
         <div className="border-t pt-4">
-          <p className="text-center text-xs text-gray-400 mb-3">演示环境 — 点击下方按钮模拟支付</p>
+          <p className="text-center text-xs text-gray-400 mb-3">{t.payment.demoNote}</p>
           <button
             onClick={handleSimulatePay}
             className="w-full py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-xl transition-colors cursor-pointer font-medium"
           >
-            模拟支付成功
+            {t.payment.simulate}
           </button>
         </div>
 
@@ -118,7 +120,7 @@ export default function PaymentQR({ reportId, onPaymentSuccess, onBack }: Props)
           onClick={onBack}
           className="w-full mt-3 py-2.5 text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
         >
-          返回报告
+          {t.payment.back}
         </button>
       </div>
 

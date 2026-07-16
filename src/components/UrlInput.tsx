@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useI18n } from '../i18n';
 
 interface Props {
   onSubmit: (url: string) => void;
@@ -7,6 +8,7 @@ interface Props {
 
 export default function UrlInput({ onSubmit, isLoading }: Props) {
   const [url, setUrl] = useState('');
+  const { t } = useI18n();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ export default function UrlInput({ onSubmit, isLoading }: Props) {
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="输入网站 URL，例如 https://example.com"
+            placeholder={t.home.inputPlaceholder}
             className="flex-1 py-5 px-2 text-lg bg-transparent outline-none text-gray-700 placeholder-gray-400"
             disabled={isLoading}
           />
@@ -43,10 +45,10 @@ export default function UrlInput({ onSubmit, isLoading }: Props) {
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                 </svg>
-                分析中...
+                {t.home.analyzing}
               </span>
             ) : (
-              '开始分析'
+              t.home.analyze
             )}
           </button>
         </div>

@@ -1,0 +1,111 @@
+export const zhCN = {
+  common: {
+    siteName: 'AI搜索优化',
+    back: '返回',
+    backToHome: '返回首页',
+    reportNotFound: '报告不存在',
+    loading: '加载中...',
+  },
+  home: {
+    badge: 'AI 搜索引擎优化',
+    title: '您的网站，AI 能理解吗？',
+    subtitle: '输入您的网站 URL，获取专业的 AEO/GEO 优化分析报告。了解 AI 如何看待您的网站，以及如何让 AI 更愿意推荐您。',
+    inputPlaceholder: '输入网站 URL，例如 https://example.com',
+    analyze: '开始分析',
+    analyzing: '分析中...',
+    supportNote: '支持任意公开可访问的网站 URL，分析过程约需 10-30 秒',
+    // 功能特性
+    featuresTitle: 'AI搜索优化核心功能',
+    f1Title: '五维 AEO 评分',
+    f1Desc: '从内容结构、语义覆盖、可信度、技术基础、页面体验五个维度全面评估网站 AI 友好度',
+    f2Title: '场景覆盖分析',
+    f2Desc: '基于 Persona × Funnel × Use Case 矩阵，分析您的网站覆盖了多少 AI 搜索场景',
+    f3Title: '可操作优化建议',
+    f3Desc: '不只是评分，更有具体的页面重构模板、内容选题建议和技术优化清单',
+    // 价值主张
+    vpTitle: '不只是 SEO，而是让 AI 愿意推荐你',
+    vpDesc: 'GEO/AEO 的本质不是让 AI 知道“你是谁”，而是让 AI 在足够多的具体问题里知道“什么时候应该推荐你”',
+    // 套餐
+    freeTitle: '📖 免费版',
+    paidTitle: '🔓 完整版 ¥1.99',
+    freeIncluded: [
+      '✅ AEO 综合评分与等级',
+      '✅ 五维分项评分',
+      '✅ 网站优势分析',
+      '✅ 当前主要问题诊断',
+    ],
+    freeLocked: [
+      '完整 9 部分报告',
+      'Word 报告下载',
+    ],
+    paidIncluded: [
+      '✅ AEO 综合评分与等级',
+      '✅ 五维分项评分',
+      '✅ 网站优势分析',
+      '✅ 当前主要问题诊断',
+      '✅ 语义场景覆盖矩阵',
+      '✅ 20 个优先页面选题',
+      '✅ 页面重构模板',
+      '✅ 技术优化清单',
+      '✅ 效果衡量方案',
+      '✅ Word 报告下载',
+    ],
+    footerText: 'AI搜索优化（aeo.miubox.com）— 让 AI 更懂你的网站',
+    sitemap: '站点地图',
+  },
+  report: {
+    analyzeError: '分析失败，请检查网址是否正确或稍后重试',
+    loadError: '加载报告失败',
+    downloadWord: '下载 Word 报告',
+    gradeLevel: (grade: string) => `${grade} 级`,
+    gradeDesc: (grade: string): string => {
+      switch (grade) {
+        case 'A': return '网站 AEO 表现优秀，AI 容易理解和引用';
+        case 'B': return '网站 AEO 基础良好，有明确优化空间';
+        case 'C': return '网站 AEO 有较大提升空间，建议系统性优化';
+        case 'D': return '网站需要重点进行 AEO 优化改造';
+        default: return '网站急需全面的 AEO 优化';
+      }
+    },
+    seoTitle: (site: string) => `${site} AEO 分析报告`,
+    seoDesc: (site: string, score: number, grade: string) =>
+      `${site} 的AI搜索优化(AEO/GEO)分析报告。综合评分 ${score}/100（${grade}级），五维分项评估，附详细优化建议。`,
+  },
+  paywall: {
+    title: '解锁完整报告',
+    viewedFree: '您已查看免费部分（前 3/9 部分）',
+    payHint: '支付后即可查看完整 9 部分报告并下载 Word 版本',
+    price: '¥1.99',
+    unlock: '立即解锁完整报告',
+    payMethods: '支持微信/支付宝扫码支付',
+  },
+  payment: {
+    invalidId: '无效的报告 ID',
+    title: '扫码支付解锁完整报告',
+    amountHint: '支付后即可查看完整 9 部分报告 + 下载 Word 版',
+    qrNote: '请使用微信或支付宝扫描二维码完成支付',
+    qrWallets: '微信 / 支付宝',
+    orderPrefix: '订单号：',
+    demoNote: '演示环境 — 点击下方按钮模拟支付',
+    simulate: '模拟支付成功',
+    back: '返回报告',
+    success: '支付成功！',
+    redirecting: '正在跳转到完整报告...',
+    createOrderFail: '创建订单失败',
+    payFail: '支付失败',
+  },
+  loading: {
+    title: '正在分析您的网站',
+    steps: [
+      { label: '正在访问目标网站...', icon: '🌐' },
+      { label: '分析页面结构...', icon: '🔍' },
+      { label: '检测 Schema 标记...', icon: '📋' },
+      { label: '评估内容质量...', icon: '📝' },
+      { label: '生成优化报告...', icon: '📊' },
+    ],
+    waitNote: '这可能需要 10-30 秒，请耐心等待',
+  },
+  lang: {
+    switchLabel: '语言',
+  },
+};

@@ -1,3 +1,5 @@
+import { useI18n } from '../i18n';
+
 interface Props {
   score: number;
   grade: string;
@@ -22,6 +24,7 @@ function getScoreColor(score: number) {
 }
 
 export default function ScoreCard({ score, grade, siteName }: Props) {
+  const { t } = useI18n();
   return (
     <div className="bg-white rounded-2xl shadow-lg p-8 text-center max-w-md mx-auto">
       <p className="text-gray-500 text-sm mb-2">{siteName}</p>
@@ -45,14 +48,10 @@ export default function ScoreCard({ score, grade, siteName }: Props) {
         </div>
       </div>
       <div className={`inline-block px-4 py-1.5 rounded-full text-lg font-bold ${getGradeColor(grade)}`}>
-        {grade} 级
+        {t.report.gradeLevel(grade)}
       </div>
       <p className="mt-3 text-sm text-gray-500">
-        {grade === 'A' && '网站 AEO 表现优秀，AI 容易理解和引用'}
-        {grade === 'B' && '网站 AEO 基础良好，有明确优化空间'}
-        {grade === 'C' && '网站 AEO 有较大提升空间，建议系统性优化'}
-        {grade === 'D' && '网站需要重点进行 AEO 优化改造'}
-        {grade === 'F' && '网站急需全面的 AEO 优化'}
+        {t.report.gradeDesc(grade)}
       </p>
     </div>
   );

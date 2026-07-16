@@ -1,11 +1,8 @@
+import { useI18n } from '../i18n';
+
 export default function LoadingAnalysis() {
-  const steps = [
-    { label: '正在访问目标网站...', icon: '🌐' },
-    { label: '分析页面结构...', icon: '🔍' },
-    { label: '检测 Schema 标记...', icon: '📋' },
-    { label: '评估内容质量...', icon: '📝' },
-    { label: '生成优化报告...', icon: '📊' },
-  ];
+  const { t } = useI18n();
+  const steps = t.loading.steps;
 
   return (
     <div className="flex flex-col items-center justify-center py-20">
@@ -15,7 +12,7 @@ export default function LoadingAnalysis() {
           <span className="text-3xl">🤖</span>
         </div>
       </div>
-      <h3 className="text-xl font-bold text-gray-800 mb-6">正在分析您的网站</h3>
+      <h3 className="text-xl font-bold text-gray-800 mb-6">{t.loading.title}</h3>
       <div className="space-y-3">
         {steps.map((step, i) => (
           <div key={i} className="flex items-center gap-3 text-gray-500">
@@ -27,7 +24,7 @@ export default function LoadingAnalysis() {
           </div>
         ))}
       </div>
-      <p className="mt-8 text-sm text-gray-400">这可能需要 10-30 秒，请耐心等待</p>
+      <p className="mt-8 text-sm text-gray-400">{t.loading.waitNote}</p>
     </div>
   );
 }

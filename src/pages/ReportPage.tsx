@@ -5,12 +5,15 @@ import ScoreCard from '../components/ScoreCard';
 import ReportSection from '../components/ReportSection';
 import Paywall from '../components/Paywall';
 import SEO from '../components/SEO';
+import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useI18n } from '../i18n';
 import type { FreeReport, FullReport } from '../types/report';
 
 export default function ReportPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { t } = useI18n();
   const [report, setReport] = useState<FreeReport | FullReport | null>(null);
   const [isFull, setIsFull] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -36,7 +39,7 @@ export default function ReportPage() {
         sessionStorage.setItem(`aeo_paid_${reportId}`, '1');
       }
     } catch (e: any) {
-      setError(e?.response?.data?.detail || '加载报告失败');
+      setError(e?.response?.data?.detail || t.report.loadError);
     } finally {
       setLoading(false);
     }
@@ -56,8 +59,8 @@ export default function ReportPage() {
   if (error || !report) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-        <p className="text-red-500 mb-4">{error || '报告不存在'}</p>
-        <button onClick={() => navigate('/')} className="text-blue-600 hover:underline cursor-pointer">返回首页</button>
+        <p className="text-red-500 mb-4">{error || t.common.reportNotFound}</p>
+        <button onClick={() => navigate('/')} className="text-blue-600 hover:underline cursor-pointer">{t.common.backToHome}</button>
       </div>
     );
   }
@@ -70,28 +73,31 @@ export default function ReportPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <SEO
-        title={`${meta.site_name} AEO 分析报告`}
-        description={`${meta.site_name} 的AI搜索优化(AEO/GEO)分析报告。综合评分 ${meta.total_score}/100（${meta.grade}级），五维分项评估，附详细优化建议。`}
+        title={t.report.seoTitle(meta.site_name)}
+        description={t.report.seoDesc(meta.site_name, meta.total_score, meta.grade)}
         canonical={`https://aeo.miubox.com/report/${id}`}
       />
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-30">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer">
+        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
+          <button onClick={() => navigate('/')} className="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer whitespace-nowrap">
             <svg className="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            返回
+            {t.common.back}
           </button>
           <h1 className="text-lg font-bold text-gray-800 truncate max-w-xs">{meta.site_name}</h1>
-          {isFull && (
-            <a
-              href={getWordDownloadUrl(id!)}
-              className="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-            >
-              下载 Word 报告
-            </a>
-          )}
+          <div className="flex items-center gap-2 whitespace-nowrap">
+            {isFull && (
+              <a
+                href={getWordDownloadUrl(id!)}
+                className="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
+              >
+                {t.report.downloadWord}
+              </a>
+            )}
+            <LanguageSwitcher />
+          </div>
         </div>
       </div>
 
@@ -293,7 +299,7 @@ export default function ReportPage() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
-                下载 Word 版完整报告
+                {t.report.downloadWord}
               </a>
             </div>
           </>

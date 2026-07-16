@@ -1,8 +1,11 @@
+import { useI18n } from '../i18n';
+
 interface Props {
   onPayClick: () => void;
 }
 
 export default function Paywall({ onPayClick }: Props) {
+  const { t } = useI18n();
   return (
     <div className="relative">
       {/* 模糊遮罩 */}
@@ -14,17 +17,17 @@ export default function Paywall({ onPayClick }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-gray-800 mb-2">解锁完整报告</h3>
-            <p className="text-gray-500 mb-1">您已查看免费部分（前 3/9 部分）</p>
-            <p className="text-gray-500 mb-6 text-sm">支付后即可查看完整 9 部分报告并下载 Word 版本</p>
-            <div className="text-3xl font-bold text-blue-600 mb-6">¥1.99</div>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">{t.paywall.title}</h3>
+            <p className="text-gray-500 mb-1">{t.paywall.viewedFree}</p>
+            <p className="text-gray-500 mb-6 text-sm">{t.paywall.payHint}</p>
+            <div className="text-3xl font-bold text-blue-600 mb-6">{t.paywall.price}</div>
             <button
               onClick={onPayClick}
               className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-md hover:shadow-lg cursor-pointer"
             >
-              立即解锁完整报告
+              {t.paywall.unlock}
             </button>
-            <p className="mt-3 text-xs text-gray-400">支持微信/支付宝扫码支付</p>
+            <p className="mt-3 text-xs text-gray-400">{t.paywall.payMethods}</p>
           </div>
         </div>
         <div className="h-40 bg-gray-50"></div>

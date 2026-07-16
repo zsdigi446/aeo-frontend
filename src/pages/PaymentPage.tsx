@@ -1,14 +1,16 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import PaymentQR from '../components/PaymentQR';
+import { useI18n } from '../i18n';
 
 export default function PaymentPage() {
   const { reportId } = useParams<{ reportId: string }>();
   const navigate = useNavigate();
+  const { t } = useI18n();
 
   if (!reportId) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-500">无效的报告 ID</p>
+        <p className="text-gray-500">{t.payment.invalidId}</p>
       </div>
     );
   }
