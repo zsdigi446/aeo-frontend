@@ -25,16 +25,16 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center p-4">
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center p-4" role="main">
         <LoadingAnalysis />
-      </div>
+      </main>
     );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       {/* Hero */}
-      <div className="pt-20 pb-16 px-4 text-center">
+      <header className="pt-20 pb-16 px-4 text-center">
         <div className="mb-6">
           <span className="inline-block px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-4">
             AI 搜索引擎优化
@@ -51,7 +51,7 @@ export default function HomePage() {
         <UrlInput onSubmit={handleSubmit} isLoading={false} />
 
         {error && (
-          <div className="mt-4 max-w-2xl mx-auto p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+          <div className="mt-4 max-w-2xl mx-auto p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm" role="alert">
             {error}
           </div>
         )}
@@ -59,43 +59,44 @@ export default function HomePage() {
         <p className="mt-4 text-xs text-gray-400">
           支持任意公开可访问的网站 URL，分析过程约需 10-30 秒
         </p>
-      </div>
+      </header>
 
       {/* Features */}
-      <div className="max-w-6xl mx-auto px-4 pb-20">
+      <section className="max-w-6xl mx-auto px-4 pb-20" aria-label="核心功能">
+        <h2 className="sr-only">AI搜索优化核心功能</h2>
         <div className="grid md:grid-cols-3 gap-8">
-          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+          <article className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-4" aria-hidden="true">
               <span className="text-2xl">🔍</span>
             </div>
             <h3 className="text-lg font-bold text-gray-800 mb-2">五维 AEO 评分</h3>
             <p className="text-gray-500 text-sm">
               从内容结构、语义覆盖、可信度、技术基础、页面体验五个维度全面评估网站 AI 友好度
             </p>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+          </article>
+          <article className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mb-4" aria-hidden="true">
               <span className="text-2xl">📊</span>
             </div>
             <h3 className="text-lg font-bold text-gray-800 mb-2">场景覆盖分析</h3>
             <p className="text-gray-500 text-sm">
               基于 Persona × Funnel × Use Case 矩阵，分析您的网站覆盖了多少 AI 搜索场景
             </p>
-          </div>
-          <div className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+          </article>
+          <article className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-4" aria-hidden="true">
               <span className="text-2xl">📝</span>
             </div>
             <h3 className="text-lg font-bold text-gray-800 mb-2">可操作优化建议</h3>
             <p className="text-gray-500 text-sm">
               不只是评分，更有具体的页面重构模板、内容选题建议和技术优化清单
             </p>
-          </div>
+          </article>
         </div>
-      </div>
+      </section>
 
       {/* Value Prop */}
-      <div className="bg-white py-16 px-4">
+      <section className="bg-white py-16 px-4" aria-label="免费版与完整版对比">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
             不只是 SEO，而是让 AI 愿意推荐你
@@ -106,7 +107,7 @@ export default function HomePage() {
           </p>
           <div className="grid md:grid-cols-2 gap-6 text-left">
             <div className="bg-gray-50 rounded-xl p-5">
-              <h4 className="font-bold text-gray-800 mb-2">📖 免费版</h4>
+              <h3 className="font-bold text-gray-800 mb-2">📖 免费版</h3>
               <ul className="text-sm text-gray-500 space-y-1.5">
                 <li>✅ AEO 综合评分与等级</li>
                 <li>✅ 五维分项评分</li>
@@ -117,7 +118,7 @@ export default function HomePage() {
               </ul>
             </div>
             <div className="bg-blue-50 rounded-xl p-5 border-2 border-blue-200">
-              <h4 className="font-bold text-gray-800 mb-2">🔓 完整版 ¥1.99</h4>
+              <h3 className="font-bold text-gray-800 mb-2">🔓 完整版 ¥1.99</h3>
               <ul className="text-sm text-gray-500 space-y-1.5">
                 <li>✅ AEO 综合评分与等级</li>
                 <li>✅ 五维分项评分</li>
@@ -133,12 +134,15 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Footer */}
-      <div className="py-8 text-center text-sm text-gray-400">
-        AEO Analyzer — 让 AI 更懂你的网站
-      </div>
+      <footer className="py-8 text-center text-sm text-gray-400" role="contentinfo">
+        <p>AI搜索优化（aeo.miubox.com）— 让 AI 更懂你的网站</p>
+        <p className="mt-1">
+          <a href="/sitemap.xml" className="text-blue-500 hover:text-blue-700" title="站点地图">Sitemap</a>
+        </p>
+      </footer>
     </div>
   );
 }

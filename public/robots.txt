@@ -1,0 +1,22 @@
+# AI搜索优化 - robots.txt
+# https://aeo.miubox.com/
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://aeo.miubox.com/sitemap.xml
+
+# Crawl-delay (友好爬取频率，避免服务器压力)
+Crawl-delay: 10
+
+# 屏蔽常见恶意爬虫
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /

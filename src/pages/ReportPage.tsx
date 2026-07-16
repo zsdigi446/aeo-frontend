@@ -4,6 +4,7 @@ import { getReport, getWordDownloadUrl } from '../api';
 import ScoreCard from '../components/ScoreCard';
 import ReportSection from '../components/ReportSection';
 import Paywall from '../components/Paywall';
+import SEO from '../components/SEO';
 import type { FreeReport, FullReport } from '../types/report';
 
 export default function ReportPage() {
@@ -68,6 +69,11 @@ export default function ReportPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SEO
+        title={`${meta.site_name} AEO 分析报告`}
+        description={`${meta.site_name} 的AI搜索优化(AEO/GEO)分析报告。综合评分 ${meta.total_score}/100（${meta.grade}级），五维分项评估，附详细优化建议。`}
+        canonical={`https://aeo.miubox.com/report/${id}`}
+      />
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-30">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
