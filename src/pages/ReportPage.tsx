@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { getReport, getWordDownloadUrl } from '../api';
 import ScoreCard from '../components/ScoreCard';
@@ -7,21 +7,27 @@ import Paywall from '../components/Paywall';
 import SEO from '../components/SEO';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useI18n } from '../i18n';
+import { translateReport } from '../i18n/translateReport';
 import type { FreeReport, FullReport } from '../types/report';
 
 export default function ReportPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { t } = useI18n();
-  const [report, setReport] = useState<FreeReport | FullReport | null>(null);
+  const { t, lang } = useI18n();
+  const [rawReport, setRawReport] = useState<FreeReport | FullReport | null>(null);
   const [isFull, setIsFull] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  // 根据当前语言翻译后的报告（切换语言时自动更新）
+  const report = useMemo(() => {
+    if (!rawReport) return null;
+    return translateReport(rawReport, t.reportTerms as any, lang);
+  }, [rawReport, t.reportTerms, lang]);
+
   useEffect(() => {
     if (id) {
-      // 检测是否已支付（sessionStorage 标记 或 URL ?paid=1）
       const alreadyPaid = sessionStorage.getItem(`aeo_paid_${id}`) === '1' || searchParams.get('paid') === '1';
       loadReport(id, alreadyPaid);
     }
@@ -32,10 +38,9 @@ export default function ReportPage() {
     setError('');
     try {
       const res = await getReport(reportId, isPaid ? 'full' : 'free');
-      setReport(res.data);
+      setRawReport(res.data); // 存原始数据
       setIsFull(res.is_full);
       if (isPaid && res.is_full) {
-        // 确认完整版加载成功，持久化支付标记
         sessionStorage.setItem(`aeo_paid_${reportId}`, '1');
       }
     } catch (e: any) {
@@ -69,6 +74,7 @@ export default function ReportPage() {
   const overview = report.part1_overview;
   const advantages = report.part2_advantages;
   const problems = report.part3_problems;
+  const terms = t.reportTerms;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -105,17 +111,17 @@ export default function ReportPage() {
         {/* Score */}
         <ScoreCard score={meta.total_score} grade={meta.grade} siteName={meta.site_name} />
 
-        {/* Part 1: Overview */}
+        {/* Part 1: Overview — 使用翻译后的表头 */}
         <ReportSection title={overview.title}>
           <p className="text-gray-600 mb-4">{overview.summary}</p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-blue-600 text-white">
-                  <th className="px-4 py-2 text-left rounded-l-lg">维度</th>
-                  <th className="px-4 py-2 text-center">权重</th>
-                  <th className="px-4 py-2 text-center">评分</th>
-                  <th className="px-4 py-2 text-left rounded-r-lg">关键发现</th>
+                  <th className="px-4 py-2 text-left rounded-l-lg">{terms.thDimension}</th>
+                  <th className="px-4 py-2 text-center">{terms.thWeight}</th>
+                  <th className="px-4 py-2 text-center">{terms.thScore}</th>
+                  <th className="px-4 py-2 text-left rounded-r-lg">{terms.thKeyFinding}</th>
                 </tr>
               </thead>
               <tbody>
@@ -176,11 +182,11 @@ export default function ReportPage() {
                   <table className="w-full text-xs">
                     <thead>
                       <tr className="bg-blue-600 text-white">
-                        <th className="px-3 py-2 text-left rounded-l-lg">Persona</th>
-                        <th className="px-3 py-2 text-center">Funnel</th>
-                        <th className="px-3 py-2 text-left">Use Case</th>
-                        <th className="px-3 py-2 text-left">AI 问题</th>
-                        <th className="px-3 py-2 text-left rounded-r-lg">建议页面</th>
+                        <th className="px-3 py-2 text-left rounded-l-lg">{terms.thPersona}</th>
+                        <th className="px-3 py-2 text-center">{terms.thFunnel}</th>
+                        <th className="px-3 py-2 text-left">{terms.thUseCase}</th>
+                        <th className="px-3 py-2 text-left">{terms.thAIQuestion}</th>
+                        <th className="px-3 py-2 text-left rounded-r-lg">{terms.thRecommendedPage}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -214,7 +220,8 @@ export default function ReportPage() {
                 ))}
                 <div className="bg-blue-50 rounded-xl p-4 mt-4">
                   <p className="font-bold text-blue-800 text-sm">
-                    优先级最高的 5 篇：{(report as FullReport).part5_priority_pages.top5.join('、')}
+                    {lang === 'zh-CN' ? '优先级最高的 5 篇：' : 'Top 5 Priority Pages: '}
+                    {(report as FullReport).part5_priority_pages.top5.join(lang === 'zh-CN' ? '、' : ', ')}
                   </p>
                 </div>
               </ReportSection>
@@ -225,7 +232,8 @@ export default function ReportPage() {
               <ReportSection title={(report as FullReport).part6_page_template.title}>
                 <div className="bg-gray-50 rounded-xl p-5">
                   <h4 className="font-bold text-gray-800 mb-3">
-                    示例页面：{(report as FullReport).part6_page_template.example.page_title}
+                    {lang === 'zh-CN' ? '示例页面：' : 'Example Page: '}
+                    {(report as FullReport).part6_page_template.example.page_title}
                   </h4>
                   <div className="space-y-2">
                     {(report as FullReport).part6_page_template.example.structure.map((item, i) => (
@@ -240,7 +248,9 @@ export default function ReportPage() {
                     ))}
                   </div>
                   <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-                    <p className="text-xs font-bold text-blue-800 mb-1">GEO/AEO 内容模板：</p>
+                    <p className="text-xs font-bold text-blue-800 mb-1">
+                      {lang === 'zh-CN' ? 'GEO/AEO 内容模板：' : 'GEO/AEO Content Template: '}
+                    </p>
                     <p className="text-xs text-blue-700">{(report as FullReport).part6_page_template.example.geo_template}</p>
                   </div>
                 </div>

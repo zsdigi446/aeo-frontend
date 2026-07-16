@@ -108,4 +108,59 @@ export const enUS = {
   lang: {
     switchLabel: 'Language',
   },
+  // ===== Report fixed-term translations (dimension names, section titles, table headers) =====
+  reportTerms: {
+    // Part 1
+    part1Title: 'I. AEO Health Score Overview',
+    // Dimension names
+    dimContentStructure: 'Content Structure',
+    dimSemanticCoverage: 'Semantic Coverage',
+    dimCredibility: 'Credibility',
+    dimTechnicalBasis: 'Technical Foundation',
+    dimPageExperience: 'Page Experience',
+    // Table headers
+    thDimension: 'Dimension',
+    thWeight: 'Weight',
+    thScore: 'Score',
+    thKeyFinding: 'Key Finding',
+    // Part 2-9 section titles
+    part2Title: 'II. Current AEO Strengths',
+    part3Title: 'III. Top AEO Issues',
+    part4Title: 'IV. Persona × Funnel × Use Case Content Opportunities',
+    part5Title: 'V. Top-Priority AEO Pages to Build',
+    part6Title: 'VI. Page Restructuring Template',
+    part7Title: 'VII. Technical & Crawl Recommendations',
+    part8Title: 'VIII. AEO Effect Measurement Methods',
+    part9Title: 'IX. Final Verdict',
+    // Part 4-8 sub-headings
+    scenarioDescPrefix: 'Based on',
+    scenarioDescSuffix: "'s industry profile and existing content, here is the recommended AI semantic scenario coverage matrix:",
+    priorityPagesDesc: 'The following pages are grouped into four priority levels — implement them in order:',
+    group1Name: 'Group 1: Comparison Pages',
+    group2Name: 'Group 2: Best For / Not For Pages',
+    group3Name: 'Group 3: Scenario / Use-Case Pages',
+    group4Name: 'Group 4: FAQ / Knowledge Base Pages',
+    templateDesc: "Below is an example page structure showing how to transform a standard product/service page into an AI-friendly 'Decision Answer Page':",
+    techItemSchema: 'Add structured data markup (Product, FAQPage, Breadcrumb, Organization, Article, etc.) for core pages',
+    techItemViewport: 'Add Viewport Meta tag for mobile responsiveness',
+    techItemMetaDesc: 'Add unique Meta Description (50-160 chars) per page',
+    measurementDescPrefix: 'We recommend establishing an AI Answer Share monitoring mechanism for',
+    measurementDescSuffix: ', testing a set of core prompts monthly across three dimensions:',
+    measureDimVisibility: 'AI Visibility',
+    measureDimShare: 'Citation Share',
+    measureDimAccuracy: 'Brand Narrative Accuracy',
+    measureVisibilityDesc: 'Test 5-10 core questions monthly — check if your brand appears in AI recommended answers',
+    measureShareDesc: 'Test 10-15 questions in ChatGPT, Perplexity, Gemini etc. — compare appearance frequency vs competitors',
+    measureAccuracyDesc: 'Ask AI directly about your brand — check if responses are accurate and complete',
+    conclusionSummaryPrefix: "Key recommendation: don't treat your website as just a display window — upgrade it into an 'AI Decision Answer Library' so that in enough specific questions, AI knows when to recommend you.",
+    // Problem prefix
+    problemPrefix: 'Issue',
+    noData: 'No data available',
+    // Scenario table headers
+    thPersona: 'Persona',
+    thFunnel: 'Funnel Stage',
+    thUseCase: 'Use Case',
+    thAIQuestion: 'Likely AI Question',
+    thRecommendedPage: 'Recommended Page',
+  },
 };

@@ -108,4 +108,60 @@ export const zhCN = {
   lang: {
     switchLabel: '语言',
   },
+  // ===== 报告正文中的固定术语翻译（维度名、章节标题、表头等） =====
+  // 中文版：原样返回（后端就是中文）
+  reportTerms: {
+    // Part 1
+    part1Title: '一、AEO 健康度评分总览',
+    // 维度名
+    dimContentStructure: '内容结构',
+    dimSemanticCoverage: '语义覆盖',
+    dimCredibility: '可信度',
+    dimTechnicalBasis: '技术基础',
+    dimPageExperience: '页面体验',
+    // 表头
+    thDimension: '维度',
+    thWeight: '权重',
+    thScore: '评分',
+    thKeyFinding: '关键发现',
+    // Part 2-9 章节标题
+    part2Title: '二、网站当前 AEO 优势',
+    part3Title: '三、当前最大 AEO 问题',
+    part4Title: '四、Persona × Funnel × Use Case 内容机会',
+    part5Title: '五、最值得优先做的 AEO 页面',
+    part6Title: '六、页面重构模板',
+    part7Title: '七、技术与抓取层面建议',
+    part8Title: '八、AEO 效果衡量方式',
+    part9Title: '九、最终判断',
+    // Part 4-8 子标题
+    scenarioDescPrefix: '基于',
+    scenarioDescSuffix: '的行业特点和现有内容，以下是推荐的 AI 语义场景覆盖矩阵：',
+    priorityPagesDesc: '以下页面按优先级分为四组，建议按顺序逐步实施：',
+    group1Name: '第一组：对比类页面',
+    group2Name: '第二组：适合/不适合类页面',
+    group3Name: '第三组：场景/用例页面',
+    group4Name: '第四组：FAQ/知识库页面',
+    templateDesc: '以下是一个示例页面结构，展示如何将普通产品/服务页面改造成 AI 友好的「决策答案页」：',
+    techItemSchema: '为核心页面添加 Product、FAQPage、Breadcrumb、Organization、Article 等结构化数据标记',
+    techItemViewport: '添加 Viewport Meta 标签，确保移动端适配',
+    techItemMetaDesc: '为每个页面添加独特的 Meta Description（50-160 字符）',
+    measurementDescPrefix: '建议为',
+    measurementDescSuffix: '建立 AI Answer Share 监测机制，每月固定测试一组核心 prompt，关注三个维度：',
+    measureDimVisibility: 'AI 可见度',
+    measureDimShare: '引用份额',
+    measureDimAccuracy: '品牌叙事准确度',
+    measureVisibilityDesc: '每月测试 5-10 个核心问题，检查品牌是否出现在 AI 推荐答案中',
+    measureShareDesc: '在 ChatGPT、Perplexity、Gemini 等工具中测试 10-15 个问题，对比竞品出现频率',
+    measureAccuracyDesc: '直接问 AI 关于品牌的问题，检查回答是否准确、完整',
+    conclusionSummaryPrefix: '核心建议：不要把网站仅仅当作展示窗口，而要把它升级为「AI 决策答案库」——在足够多的具体问题里，让 AI 知道什么时候应该推荐你。',
+    // 问题前缀
+    problemPrefix: '问题',
+    noData: '暂无数据',
+    // 场景表头
+    thPersona: '用户画像',
+    thFunnel: '漏斗阶段',
+    thUseCase: '使用场景',
+    thAIQuestion: 'AI 可能提问',
+    thRecommendedPage: '推荐页面',
+  },
 };
