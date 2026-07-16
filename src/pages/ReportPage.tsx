@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { getReport, getWordDownloadUrl } from '../api';
 import ScoreCard from '../components/ScoreCard';
@@ -7,7 +7,6 @@ import Paywall from '../components/Paywall';
 import SEO from '../components/SEO';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useI18n } from '../i18n';
-import { translateReport } from '../i18n/translateReport';
 import type { FreeReport, FullReport } from '../types/report';
 
 export default function ReportPage() {
@@ -20,24 +19,21 @@ export default function ReportPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  // 根据当前语言翻译后的报告（切换语言时自动更新）
-  const report = useMemo(() => {
-    if (!rawReport) return null;
-    return translateReport(rawReport, t.reportTerms as any, lang);
-  }, [rawReport, t.reportTerms, lang]);
+  // 报告由后端按 lang 返回（已翻译），直接作为渲染数据源
+  const report = rawReport;
 
   useEffect(() => {
     if (id) {
       const alreadyPaid = sessionStorage.getItem(`aeo_paid_${id}`) === '1' || searchParams.get('paid') === '1';
       loadReport(id, alreadyPaid);
     }
-  }, [id]);
+  }, [id, lang]);
 
   async function loadReport(reportId: string, isPaid: boolean = false) {
     setLoading(true);
     setError('');
     try {
-      const res = await getReport(reportId, isPaid ? 'full' : 'free');
+      const res = await getReport(reportId, isPaid ? 'full' : 'free', lang);
       setRawReport(res.data); // 存原始数据
       setIsFull(res.is_full);
       if (isPaid && res.is_full) {
@@ -96,7 +92,7 @@ export default function ReportPage() {
           <div className="flex items-center gap-2 whitespace-nowrap">
             {isFull && (
               <a
-                href={getWordDownloadUrl(id!)}
+                href={getWordDownloadUrl(id!, lang)}
                 className="px-4 py-1.5 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
               >
                 {t.report.downloadWord}
@@ -306,7 +302,7 @@ export default function ReportPage() {
             {/* Download button at bottom */}
             <div className="text-center py-6">
               <a
-                href={getWordDownloadUrl(id!)}
+                href={getWordDownloadUrl(id!, lang)}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors shadow-md cursor-pointer"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

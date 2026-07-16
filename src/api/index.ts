@@ -6,13 +6,13 @@ import type { AnalyzeResponse, ReportResponse, OrderResponse, VerifyResponse } f
 const API_BASE = import.meta.env.VITE_API_URL || '';
 const api = axios.create({ baseURL: API_BASE });
 
-export async function analyzeUrl(url: string): Promise<AnalyzeResponse> {
-  const { data } = await api.post('/analyze', { url });
+export async function analyzeUrl(url: string, lang: string): Promise<AnalyzeResponse> {
+  const { data } = await api.post('/analyze', { url, lang });
   return data;
 }
 
-export async function getReport(reportId: string, type: 'free' | 'full' = 'free'): Promise<ReportResponse> {
-  const { data } = await api.get(`/report/${reportId}`, { params: { type } });
+export async function getReport(reportId: string, type: 'free' | 'full' = 'free', lang: string = 'zh-CN'): Promise<ReportResponse> {
+  const { data } = await api.get(`/report/${reportId}`, { params: { type, lang } });
   return data;
 }
 
@@ -31,6 +31,6 @@ export async function simulatePay(orderId: string): Promise<{ success: boolean; 
   return data;
 }
 
-export function getWordDownloadUrl(reportId: string): string {
-  return `${API_BASE}/report/${reportId}/word`;
+export function getWordDownloadUrl(reportId: string, lang: string = 'zh-CN'): string {
+  return `${API_BASE}/report/${reportId}/word?lang=${encodeURIComponent(lang)}`;
 }

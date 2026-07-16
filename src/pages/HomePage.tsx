@@ -11,13 +11,13 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   async function handleSubmit(url: string) {
     setIsLoading(true);
     setError('');
     try {
-      const res = await analyzeUrl(url);
+      const res = await analyzeUrl(url, lang);
       navigate(`/report/${res.report_id}`);
     } catch (e: any) {
       const detail = e?.response?.data?.detail;
