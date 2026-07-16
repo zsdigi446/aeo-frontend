@@ -27,6 +27,8 @@ export default function HomePage() {
     }
   }
 
+  const isRateLimitError = error.includes('429') || error.includes('Too Many Requests');
+
   if (isLoading) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center p-4" role="main">
@@ -61,7 +63,10 @@ export default function HomePage() {
 
         {error && (
           <div className="mt-4 max-w-2xl mx-auto p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm" role="alert">
-            {error}
+            <p>{error}</p>
+            {isRateLimitError && (
+              <p className="mt-2 text-red-500 text-xs">{t.report.rateLimitSuggestion}</p>
+            )}
           </div>
         )}
 

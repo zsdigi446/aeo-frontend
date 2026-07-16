@@ -59,6 +59,7 @@ export const enUS = {
   report: {
     analyzeError: 'Analysis failed. Please check the URL or try again later.',
     loadError: 'Failed to load report',
+    rateLimitSuggestion: 'Tip: The target website temporarily blocked the request, likely due to anti-bot/rate limiting. Please wait 30 seconds and retry, or try analyzing a different page.',
     downloadWord: 'Download Word Report',
     gradeLevel: (grade: string) => `Grade ${grade}`,
     gradeDesc: (grade: string): string => {

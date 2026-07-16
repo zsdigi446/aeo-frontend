@@ -59,6 +59,7 @@ export const zhCN = {
   report: {
     analyzeError: '分析失败，请检查网址是否正确或稍后重试',
     loadError: '加载报告失败',
+    rateLimitSuggestion: '提示：目标网站临时拒绝了请求，可能是反爬/限流机制触发。建议等待 30 秒后重试，或尝试分析其他页面。',
     downloadWord: '下载 Word 报告',
     gradeLevel: (grade: string) => `${grade} 级`,
     gradeDesc: (grade: string): string => {
