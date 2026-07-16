@@ -34,7 +34,7 @@ export default function ReportPage() {
     setError('');
     try {
       const res = await getReport(reportId, isPaid ? 'full' : 'free', lang);
-      setRawReport(res.data); // 存原始数据
+      setRawReport(res.data);
       setIsFull(res.is_full);
       if (isPaid && res.is_full) {
         sessionStorage.setItem(`aeo_paid_${reportId}`, '1');
@@ -67,9 +67,10 @@ export default function ReportPage() {
   }
 
   const meta = report.meta;
-  const overview = report.part1_overview;
+  const coreJudgment = report.part1_core_judgment;
   const advantages = report.part2_advantages;
   const problems = report.part3_problems;
+  const contentCoverage = report.part4_content_coverage;
   const terms = t.reportTerms;
 
   return (
@@ -107,9 +108,44 @@ export default function ReportPage() {
         {/* Score */}
         <ScoreCard score={meta.total_score} grade={meta.grade} siteName={meta.site_name} />
 
-        {/* Part 1: Overview — 使用翻译后的表头 */}
-        <ReportSection title={overview.title}>
-          <p className="text-gray-600 mb-4">{overview.summary}</p>
+        {/* Part 1: Core Judgment */}
+        <ReportSection title={coreJudgment.title}>
+          {/* 总分概述 */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 mb-4">
+            <p className="text-2xl font-bold text-blue-700">{coreJudgment.overview_score}</p>
+          </div>
+
+          {/* 概况 */}
+          <p className="text-gray-600 mb-4">{coreJudgment.summary}</p>
+
+          {/* 核心判断 */}
+          <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-4">
+            <p className="text-sm font-bold text-yellow-800 mb-1">{terms.coreJudgmentLabel}</p>
+            <p className="text-yellow-700 text-sm">{coreJudgment.judgment}</p>
+          </div>
+
+          {/* 维度总结 */}
+          {coreJudgment.dimension_summary.length > 0 && (
+            <div className="mb-4">
+              <p className="text-sm font-bold text-gray-700 mb-2">{terms.dimensionSummaryLabel}</p>
+              <ul className="space-y-1">
+                {coreJudgment.dimension_summary.map((item, i) => (
+                  <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                    <span className="text-blue-500 mt-0.5 flex-shrink-0">•</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* 优先行动 */}
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-4">
+            <p className="text-sm font-bold text-green-800 mb-1">{terms.priorityActionLabel}</p>
+            <p className="text-green-700 text-sm">{coreJudgment.priority_action}</p>
+          </div>
+
+          {/* 维度表格 */}
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -121,13 +157,13 @@ export default function ReportPage() {
                 </tr>
               </thead>
               <tbody>
-                {overview.dimensions.map((dim, i) => (
+                {coreJudgment.dimensions.map((dim, i) => (
                   <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                     <td className="px-4 py-3 font-medium text-gray-700">{dim.name}</td>
                     <td className="px-4 py-3 text-center text-gray-500">{dim.weight}%</td>
                     <td className="px-4 py-3 text-center">
                       <span className={`font-bold ${dim.score >= 70 ? 'text-green-600' : dim.score >= 40 ? 'text-yellow-600' : 'text-red-600'}`}>
-                        {dim.score}/100
+                        {dim.score}/{dim.max_score}
                       </span>
                     </td>
                     <td className="px-4 py-3 text-gray-500 text-xs">{dim.key_finding}</td>
@@ -162,6 +198,41 @@ export default function ReportPage() {
           </div>
         </ReportSection>
 
+        {/* Part 4: Content-Type Coverage (NEW in v2) */}
+        <ReportSection title={contentCoverage.title}>
+          <p className="text-gray-600 text-sm mb-4">{contentCoverage.description}</p>
+          <div className="bg-blue-50 rounded-xl px-4 py-2 mb-4 flex items-center gap-2">
+            <span className="text-blue-700 font-bold text-sm">
+              {terms.coverageLabel}: {contentCoverage.covered_count}/{contentCoverage.total_count}
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {contentCoverage.content_types.map((ct, i) => (
+              <div
+                key={i}
+                className={`rounded-xl p-4 border ${ct.covered ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}
+              >
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-lg">{ct.covered ? '✅' : '❌'}</span>
+                  <span className={`font-bold text-sm ${ct.covered ? 'text-green-800' : 'text-gray-500'}`}>
+                    {ct.type}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 mb-1">{ct.description}</p>
+                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                  ct.priority === '高' || ct.priority === 'High'
+                    ? 'bg-red-100 text-red-700'
+                    : ct.priority === '中' || ct.priority === 'Medium'
+                    ? 'bg-yellow-100 text-yellow-700'
+                    : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {terms.priorityLabel}: {ct.priority}
+                </span>
+              </div>
+            ))}
+          </div>
+        </ReportSection>
+
         {/* Paywall */}
         {!isFull && (
           <Paywall onPayClick={() => navigate(`/payment/${id}`)} />
@@ -170,10 +241,10 @@ export default function ReportPage() {
         {/* Full report sections */}
         {isFull && (
           <>
-            {/* Part 4: Opportunities */}
-            {('part4_content_opportunities' in report) && (
-              <ReportSection title={(report as FullReport).part4_content_opportunities.title}>
-                <p className="text-gray-600 text-sm mb-4">{(report as FullReport).part4_content_opportunities.description}</p>
+            {/* Part 5: Opportunities (Persona × Funnel × Use Case) */}
+            {('part5_opportunities' in report) && (
+              <ReportSection title={(report as FullReport).part5_opportunities.title}>
+                <p className="text-gray-600 text-sm mb-4">{(report as FullReport).part5_opportunities.description}</p>
                 <div className="overflow-x-auto">
                   <table className="w-full text-xs">
                     <thead>
@@ -186,7 +257,7 @@ export default function ReportPage() {
                       </tr>
                     </thead>
                     <tbody>
-                      {(report as FullReport).part4_content_opportunities.scenarios.map((sc, i) => (
+                      {(report as FullReport).part5_opportunities.scenarios.map((sc, i) => (
                         <tr key={i} className={i % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                           <td className="px-3 py-2 font-medium text-gray-700">{sc.persona}</td>
                           <td className="px-3 py-2 text-center text-gray-500">{sc.funnel}</td>
@@ -201,10 +272,11 @@ export default function ReportPage() {
               </ReportSection>
             )}
 
-            {/* Part 5: Priority Pages */}
-            {('part5_priority_pages' in report) && (
-              <ReportSection title={(report as FullReport).part5_priority_pages.title}>
-                {(report as FullReport).part5_priority_pages.groups.map((group, gi) => (
+            {/* Part 6: Priority Pages */}
+            {('part6_priority_pages' in report) && (
+              <ReportSection title={(report as FullReport).part6_priority_pages.title}>
+                <p className="text-gray-600 text-sm mb-4">{(report as FullReport).part6_priority_pages.description}</p>
+                {(report as FullReport).part6_priority_pages.groups.map((group, gi) => (
                   <div key={gi} className="mb-4">
                     <h4 className="font-bold text-blue-700 text-sm mb-2">{group.name}</h4>
                     <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600 ml-2">
@@ -217,22 +289,23 @@ export default function ReportPage() {
                 <div className="bg-blue-50 rounded-xl p-4 mt-4">
                   <p className="font-bold text-blue-800 text-sm">
                     {t.report.top5Label}
-                    {(report as FullReport).part5_priority_pages.top5.join(lang === 'zh-CN' ? '、' : ', ')}
+                    {(report as FullReport).part6_priority_pages.top5.join(lang === 'zh-CN' ? '、' : ', ')}
                   </p>
                 </div>
               </ReportSection>
             )}
 
-            {/* Part 6: Template */}
-            {('part6_page_template' in report) && (
-              <ReportSection title={(report as FullReport).part6_page_template.title}>
+            {/* Part 7: Page Template */}
+            {('part7_page_template' in report) && (
+              <ReportSection title={(report as FullReport).part7_page_template.title}>
+                <p className="text-gray-600 text-sm mb-4">{(report as FullReport).part7_page_template.description}</p>
                 <div className="bg-gray-50 rounded-xl p-5">
                   <h4 className="font-bold text-gray-800 mb-3">
                     {t.report.examplePageLabel}
-                    {(report as FullReport).part6_page_template.example.page_title}
+                    {(report as FullReport).part7_page_template.example.page_title}
                   </h4>
                   <div className="space-y-2">
-                    {(report as FullReport).part6_page_template.example.structure.map((item, i) => {
+                    {(report as FullReport).part7_page_template.example.structure.map((item, i) => {
                       const isComparison = item.level === '对比表' || item.level === 'Comparison Table';
                       return (
                         <div key={i} className="text-sm">
@@ -246,21 +319,38 @@ export default function ReportPage() {
                       );
                     })}
                   </div>
+                  {/* Eight Elements Checklist */}
+                  {(() => {
+                    const eightElements = (report as FullReport).part7_page_template.example.eight_elements;
+                    if (!eightElements) return null;
+                    return (
+                    <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200">
+                      <p className="text-xs font-bold text-green-800 mb-2">
+                        {terms.eightElementsLabel}
+                      </p>
+                      <div className="grid grid-cols-2 gap-1">
+                        {eightElements.map((el, i) => (
+                          <span key={i} className="text-xs text-green-700">✅ {el}</span>
+                        ))}
+                      </div>
+                    </div>
+                    );
+                  })()}
                   <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                     <p className="text-xs font-bold text-blue-800 mb-1">
                       {t.report.geoTemplateLabel}
                     </p>
-                    <p className="text-xs text-blue-700">{(report as FullReport).part6_page_template.example.geo_template}</p>
+                    <p className="text-xs text-blue-700">{(report as FullReport).part7_page_template.example.geo_template}</p>
                   </div>
                 </div>
               </ReportSection>
             )}
 
-            {/* Part 7: Technical */}
-            {('part7_technical_suggestions' in report) && (
-              <ReportSection title={(report as FullReport).part7_technical_suggestions.title}>
+            {/* Part 8: Technical */}
+            {('part8_technical' in report) && (
+              <ReportSection title={(report as FullReport).part8_technical.title}>
                 <ul className="space-y-2">
-                  {(report as FullReport).part7_technical_suggestions.items.map((item, i) => (
+                  {(report as FullReport).part8_technical.items.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
                       <span className="text-blue-500 mt-0.5 flex-shrink-0">🔧</span>
                       {item}
@@ -270,11 +360,11 @@ export default function ReportPage() {
               </ReportSection>
             )}
 
-            {/* Part 8: Measurement */}
-            {('part8_measurement' in report) && (
-              <ReportSection title={(report as FullReport).part8_measurement.title}>
-                <p className="text-gray-600 text-sm mb-4">{(report as FullReport).part8_measurement.description}</p>
-                {(report as FullReport).part8_measurement.dimensions.map((dim, i) => (
+            {/* Part 9: Measurement */}
+            {('part9_measurement' in report) && (
+              <ReportSection title={(report as FullReport).part9_measurement.title}>
+                <p className="text-gray-600 text-sm mb-4">{(report as FullReport).part9_measurement.description}</p>
+                {(report as FullReport).part9_measurement.dimensions.map((dim, i) => (
                   <div key={i} className="mb-4 bg-gray-50 rounded-xl p-4">
                     <h4 className="font-bold text-gray-800 text-sm mb-1">{dim.name}</h4>
                     <p className="text-gray-500 text-xs mb-2">{dim.description}</p>
@@ -285,17 +375,6 @@ export default function ReportPage() {
                     </div>
                   </div>
                 ))}
-              </ReportSection>
-            )}
-
-            {/* Part 9: Conclusion */}
-            {('part9_conclusion' in report) && (
-              <ReportSection title={(report as FullReport).part9_conclusion.title}>
-                <p className="font-bold text-gray-800 mb-2">{(report as FullReport).part9_conclusion.overview}</p>
-                <p className="text-gray-600 text-sm mb-3">{(report as FullReport).part9_conclusion.action}</p>
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                  <p className="text-blue-800 text-sm font-medium">{(report as FullReport).part9_conclusion.summary}</p>
-                </div>
               </ReportSection>
             )}
 

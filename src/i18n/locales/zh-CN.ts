@@ -17,14 +17,14 @@ export const zhCN = {
     // 功能特性
     featuresTitle: 'AI搜索优化核心功能',
     f1Title: '五维 AEO 评分',
-    f1Desc: '从内容结构、语义覆盖、可信度、技术基础、页面体验五个维度全面评估网站 AI 友好度',
-    f2Title: '场景覆盖分析',
-    f2Desc: '基于 Persona × Funnel × Use Case 矩阵，分析您的网站覆盖了多少 AI 搜索场景',
+    f1Desc: '从内容结构、决策内容、可信度、技术基础、页面体验五个维度全面评估网站 AI 友好度',
+    f2Title: '内容类型覆盖分析',
+    f2Desc: '分析网站是否覆盖了对比、替代品、适合/不适合、场景用例、FAQ 等 AI 偏好引用的内容类型',
     f3Title: '可操作优化建议',
     f3Desc: '不只是评分，更有具体的页面重构模板、内容选题建议和技术优化清单',
     // 价值主张
     vpTitle: '不只是 SEO，而是让 AI 愿意推荐你',
-    vpDesc: 'GEO/AEO 的本质不是让 AI 知道“你是谁”，而是让 AI 在足够多的具体问题里知道“什么时候应该推荐你”',
+    vpDesc: 'GEO/AEO 的本质不是让 AI 知道"你是谁"，而是让 AI 在足够多的具体问题里知道"什么时候应该推荐你"',
     // 套餐
     freeTitle: '📖 免费版',
     paidTitle: '🔓 完整版 ¥1.99',
@@ -33,6 +33,7 @@ export const zhCN = {
       '✅ 五维分项评分',
       '✅ 网站优势分析',
       '✅ 当前主要问题诊断',
+      '✅ 内容类型覆盖分析',
     ],
     freeLocked: [
       '完整 9 部分报告',
@@ -43,6 +44,7 @@ export const zhCN = {
       '✅ 五维分项评分',
       '✅ 网站优势分析',
       '✅ 当前主要问题诊断',
+      '✅ 内容类型覆盖分析',
       '✅ 语义场景覆盖矩阵',
       '✅ 20 个优先页面选题',
       '✅ 页面重构模板',
@@ -77,7 +79,7 @@ export const zhCN = {
   },
   paywall: {
     title: '解锁完整报告',
-    viewedFree: '您已查看免费部分（前 3/9 部分）',
+    viewedFree: '您已查看免费部分（前 4/9 部分）',
     payHint: '支付后即可查看完整 9 部分报告并下载 Word 版本',
     price: '¥1.99',
     unlock: '立即解锁完整报告',
@@ -113,13 +115,15 @@ export const zhCN = {
     switchLabel: '语言',
   },
   // ===== 报告正文中的固定术语翻译（维度名、章节标题、表头等） =====
-  // 中文版：原样返回（后端就是中文）
   reportTerms: {
-    // Part 1
-    part1Title: '一、AEO 健康度评分总览',
-    // 维度名
+    // Part 1: Core Judgment
+    part1Title: '一、核心判断',
+    coreJudgmentLabel: '🔍 核心判断',
+    dimensionSummaryLabel: '维度分析摘要',
+    priorityActionLabel: '⚡ 优先行动',
+    // 新五维度名 (v2)
     dimContentStructure: '内容结构',
-    dimSemanticCoverage: '语义覆盖',
+    dimDecisionContent: '决策内容',
     dimCredibility: '可信度',
     dimTechnicalBasis: '技术基础',
     dimPageExperience: '页面体验',
@@ -128,16 +132,19 @@ export const zhCN = {
     thWeight: '权重',
     thScore: '评分',
     thKeyFinding: '关键发现',
-    // Part 2-9 章节标题
+    // Part 2-9 章节标题 (v2 编号)
     part2Title: '二、网站当前 AEO 优势',
     part3Title: '三、当前最大 AEO 问题',
-    part4Title: '四、Persona × Funnel × Use Case 内容机会',
-    part5Title: '五、最值得优先做的 AEO 页面',
-    part6Title: '六、页面重构模板',
-    part7Title: '七、技术与抓取层面建议',
-    part8Title: '八、AEO 效果衡量方式',
-    part9Title: '九、最终判断',
-    // Part 4-8 子标题
+    part4Title: '四、内容类型覆盖分析',
+    part5Title: '五、Persona × Funnel × Use Case 内容机会',
+    part6Title: '六、最值得优先做的 AEO 页面',
+    part7Title: '七、页面重构模板',
+    part8Title: '八、技术与抓取层面建议',
+    part9Title: '九、AEO 效果衡量方式',
+    // Part 4: Content Coverage
+    coverageLabel: '内容类型覆盖',
+    priorityLabel: '优先级',
+    // Part 5-9 子标题
     scenarioDescPrefix: '基于',
     scenarioDescSuffix: '的行业特点和现有内容，以下是推荐的 AI 语义场景覆盖矩阵：',
     priorityPagesDesc: '以下页面按优先级分为四组，建议按顺序逐步实施：',
@@ -146,6 +153,7 @@ export const zhCN = {
     group3Name: '第三组：场景/用例页面',
     group4Name: '第四组：FAQ/知识库页面',
     templateDesc: '以下是一个示例页面结构，展示如何将普通产品/服务页面改造成 AI 友好的「决策答案页」：',
+    eightElementsLabel: '八大 AI 可引用元素检查清单',
     techItemSchema: '为核心页面添加 Product、FAQPage、Breadcrumb、Organization、Article 等结构化数据标记',
     techItemViewport: '添加 Viewport Meta 标签，确保移动端适配',
     techItemMetaDesc: '为每个页面添加独特的 Meta Description（50-160 字符）',
@@ -157,7 +165,6 @@ export const zhCN = {
     measureVisibilityDesc: '每月测试 5-10 个核心问题，检查品牌是否出现在 AI 推荐答案中',
     measureShareDesc: '在 ChatGPT、Perplexity、Gemini 等工具中测试 10-15 个问题，对比竞品出现频率',
     measureAccuracyDesc: '直接问 AI 关于品牌的问题，检查回答是否准确、完整',
-    conclusionSummaryPrefix: '核心建议：不要把网站仅仅当作展示窗口，而要把它升级为「AI 决策答案库」——在足够多的具体问题里，让 AI 知道什么时候应该推荐你。',
     // 问题前缀
     problemPrefix: '问题',
     noData: '暂无数据',
