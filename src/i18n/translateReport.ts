@@ -1,14 +1,20 @@
 /**
- * 报告术语翻译工具
+ * 报告全文翻译器（主入口）
  *
- * 对后端返回的报告数据中已知的固定术语（维度名、章节标题、表头等）
- * 做前端翻译覆盖。动态内容（如具体的关键发现、问题详情）保持原样。
+ * 分两层翻译：
+ * 1. 术语翻译（translateTerms）：章节标题、表头、维度名、分组名等固定术语
+ * 2. 内容翻译（translateContent）：优势条目、问题详情、场景字段、技术建议等动态模板内容
  */
 import type { FreeReport, FullReport } from '../types/report';
 import type { Lang } from '../i18n/types';
+import { translateReportContent } from './translateContent';
 
-// 维度名映射（中文 → 英文）
-const DIM_MAP: Record<string, string> = {
+export interface ReportTermMap {
+  [key: string]: string;
+}
+
+// 维度名映射（中文 → reportTerms 字典的 key）
+const DIM_KEY_MAP: Record<string, string> = {
   '内容结构': 'dimContentStructure',
   '语义覆盖': 'dimSemanticCoverage',
   '可信度': 'dimCredibility',
@@ -16,12 +22,8 @@ const DIM_MAP: Record<string, string> = {
   '页面体验': 'dimPageExperience',
 };
 
-export interface ReportTermMap {
-  [key: string]: string;
-}
-
-/** 构建中文→目标语言的替换映射表 */
-function buildReplaceMap(terms: ReportTermMap): Map<string, string> {
+/** 构建中文→目标语言的术语替换映射表 */
+function buildTermMap(terms: ReportTermMap): Map<string, string> {
   const m = new Map<string, string>();
 
   // 章节标题
@@ -52,18 +54,15 @@ function buildReplaceMap(terms: ReportTermMap): Map<string, string> {
   m.set('引用份额', terms.measureDimShare);
   m.set('品牌叙事准确度', terms.measureDimAccuracy);
 
-  // 其他固定文本
+  // 其他
   m.set('暂无数据', terms.noData);
 
   return m;
 }
 
-/** 翻译单个字符串 */
-function translateStr(s: string | undefined | null, map: Map<string, string>): string {
-  if (!s) return s ?? '';
-  // 先精确匹配整个字符串
+/** 用映射表翻译字符串 */
+function applyTermMap(s: string, map: Map<string, string>): string {
   if (map.has(s)) return map.get(s)!;
-  // 再尝试部分匹配（如"问题 1："前缀）
   let result = s;
   for (const [zh, en] of map.entries()) {
     if (result.includes(zh)) {
@@ -75,51 +74,54 @@ function translateStr(s: string | undefined | null, map: Map<string, string>): s
 
 /** 翻译维度名 */
 function translateDimName(name: string, terms: ReportTermMap): string {
-  const key = DIM_MAP[name];
+  const key = DIM_KEY_MAP[name];
   return key ? (terms[key] ?? name) : name;
 }
 
 /**
- * 对完整报告做术语翻译，返回新对象（不修改原始数据）
+ * 对完整报告做全量翻译：术语 + 内容
  */
 export function translateReport(
   report: FreeReport | FullReport,
   terms: ReportTermMap,
   lang: Lang
 ): FreeReport | FullReport {
-  if (lang === 'zh-CN') return report; // 中文无需翻译
+  if (lang === 'zh-CN') return report;
 
-  const map = buildReplaceMap(terms);
-
-  // 浅拷贝 + 深度翻译关键字段
+  // 第一步：深拷贝
   const r = JSON.parse(JSON.stringify(report)) as FreeReport | FullReport;
 
-  // Part 1 标题和维度
+  // 第二步：术语翻译
+  const termMap = buildTermMap(terms);
+
+  // Part 1
   if ('part1_overview' in r && r.part1_overview) {
-    r.part1_overview.title = translateStr(r.part1_overview.title, map);
+    r.part1_overview.title = applyTermMap(r.part1_overview.title, termMap);
     if (r.part1_overview.dimensions) {
       for (const d of r.part1_overview.dimensions) {
         d.name = translateDimName(d.name, terms);
+        // key_finding 由第三步内容翻译处理
       }
     }
   }
 
   // Part 2-9 标题
   for (let i = 2; i <= 9; i++) {
-    const key = `part${i}_${['overview','advantages','problems','content_opportunities','priority_pages','page_template','technical_suggestions','measurement','conclusion'][i - 1]}` as keyof FullReport;
+    const keys = ['overview','advantages','problems','content_opportunities','priority_pages','page_template','technical_suggestions','measurement','conclusion'];
+    const key = `part${i}_${keys[i-1]}` as keyof FullReport;
     if (key in r && typeof (r as any)[key] === 'object' && (r as any)[key]?.title) {
-      (r as any)[key].title = translateStr((r as any)[key].title, map);
+      (r as any)[key].title = applyTermMap((r as any)[key].title, termMap);
     }
   }
 
-  // dimension_details 中的维度名
+  // dimension_details 维度名
   if (r.dimension_details) {
     for (const d of r.dimension_details) {
       d.name = translateDimName(d.name, terms);
     }
   }
 
-  // Part 3 问题标题中的 "问题 X：" → "Issue X:"
+  // Part 3 问题前缀
   if ('part3_problems' in r && r.part3_problems?.problems) {
     for (const p of r.part3_problems.problems) {
       p.title = p.title.replace(/问题\s*(\d+)：/, `${terms.problemPrefix} $1:`);
@@ -129,16 +131,17 @@ export function translateReport(
   // Part 5 分组名
   if ('part5_priority_pages' in r && (r as FullReport).part5_priority_pages?.groups) {
     for (const g of (r as FullReport).part5_priority_pages.groups!) {
-      g.name = translateStr(g.name, map);
+      g.name = applyTermMap(g.name, termMap);
     }
   }
 
   // Part 8 衡量维度名
   if ('part8_measurement' in r && (r as FullReport).part8_measurement?.dimensions) {
     for (const d of (r as FullReport).part8_measurement.dimensions!) {
-      d.name = translateStr(d.name, map);
+      d.name = applyTermMap(d.name, termMap);
     }
   }
 
-  return r;
+  // 第三步：内容翻译（动态模板匹配）
+  return translateReportContent(r, lang as 'en-US');
 }
