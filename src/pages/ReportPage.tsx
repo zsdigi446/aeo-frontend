@@ -220,7 +220,7 @@ export default function ReportPage() {
                 ))}
                 <div className="bg-blue-50 rounded-xl p-4 mt-4">
                   <p className="font-bold text-blue-800 text-sm">
-                    {lang === 'zh-CN' ? '优先级最高的 5 篇：' : 'Top 5 Priority Pages: '}
+                    {t.report.top5Label}
                     {(report as FullReport).part5_priority_pages.top5.join(lang === 'zh-CN' ? '、' : ', ')}
                   </p>
                 </div>
@@ -232,24 +232,27 @@ export default function ReportPage() {
               <ReportSection title={(report as FullReport).part6_page_template.title}>
                 <div className="bg-gray-50 rounded-xl p-5">
                   <h4 className="font-bold text-gray-800 mb-3">
-                    {lang === 'zh-CN' ? '示例页面：' : 'Example Page: '}
+                    {t.report.examplePageLabel}
                     {(report as FullReport).part6_page_template.example.page_title}
                   </h4>
                   <div className="space-y-2">
-                    {(report as FullReport).part6_page_template.example.structure.map((item, i) => (
-                      <div key={i} className="text-sm">
-                        {item.level === 'H1' && <p className="font-bold text-blue-700">📌 {item.content}</p>}
-                        {item.level === 'H2' && <p className="text-gray-600 ml-4">• {item.content}</p>}
-                        {item.level === '对比表' && <p className="text-gray-500 ml-4 italic">📊 {item.content}</p>}
-                        {item.level !== 'H1' && item.level !== 'H2' && item.level !== '对比表' && (
-                          <p className="text-gray-600 ml-4">{item.content}</p>
-                        )}
-                      </div>
-                    ))}
+                    {(report as FullReport).part6_page_template.example.structure.map((item, i) => {
+                      const isComparison = item.level === '对比表' || item.level === 'Comparison Table';
+                      return (
+                        <div key={i} className="text-sm">
+                          {item.level === 'H1' && <p className="font-bold text-blue-700">📌 {item.content}</p>}
+                          {item.level === 'H2' && <p className="text-gray-600 ml-4">• {item.content}</p>}
+                          {isComparison && <p className="text-gray-500 ml-4 italic">📊 {item.content}</p>}
+                          {item.level !== 'H1' && item.level !== 'H2' && !isComparison && (
+                            <p className="text-gray-600 ml-4">{item.content}</p>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                   <div className="mt-4 p-3 bg-blue-50 rounded-lg">
                     <p className="text-xs font-bold text-blue-800 mb-1">
-                      {lang === 'zh-CN' ? 'GEO/AEO 内容模板：' : 'GEO/AEO Content Template: '}
+                      {t.report.geoTemplateLabel}
                     </p>
                     <p className="text-xs text-blue-700">{(report as FullReport).part6_page_template.example.geo_template}</p>
                   </div>

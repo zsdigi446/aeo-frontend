@@ -99,7 +99,7 @@ export default function HomePage() {
       </section>
 
       {/* Value Prop */}
-      <section className="bg-white py-16 px-4" aria-label="免费版与完整版对比">
+      <section className="bg-white py-16 px-4" aria-label={t.home.freeVsFull}>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
             {t.home.vpTitle}

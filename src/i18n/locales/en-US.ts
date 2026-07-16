@@ -52,6 +52,7 @@ export const enUS = {
     ],
     footerText: 'AI Search Optimizer (aeo.miubox.com) — Help AI understand your website',
     sitemap: 'Sitemap',
+    freeVsFull: 'Free vs Full version comparison',
   },
   report: {
     analyzeError: 'Analysis failed. Please check the URL or try again later.',
@@ -70,6 +71,9 @@ export const enUS = {
     seoTitle: (site: string) => `${site} AEO Analysis Report`,
     seoDesc: (site: string, score: number, grade: string) =>
       `${site} AI Search Optimization (AEO/GEO) analysis report. Overall score ${score}/100 (Grade ${grade}), five-dimension breakdown with detailed optimization advice.`,
+    top5Label: 'Top 5 Priority Pages: ',
+    examplePageLabel: 'Example Page: ',
+    geoTemplateLabel: 'GEO/AEO Content Template: ',
   },
   paywall: {
     title: 'Unlock the Full Report',

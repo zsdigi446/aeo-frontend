@@ -7,7 +7,7 @@
  */
 import type { FreeReport, FullReport } from '../types/report';
 import type { Lang } from '../i18n/types';
-import { translateReportContent } from './translateContent';
+import { translateReportContent } from './translateContent.ts';
 
 export interface ReportTermMap {
   [key: string]: string;

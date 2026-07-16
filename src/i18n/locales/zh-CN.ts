@@ -52,6 +52,7 @@ export const zhCN = {
     ],
     footerText: 'AI搜索优化（aeo.miubox.com）— 让 AI 更懂你的网站',
     sitemap: '站点地图',
+    freeVsFull: '免费版与完整版对比',
   },
   report: {
     analyzeError: '分析失败，请检查网址是否正确或稍后重试',
@@ -70,6 +71,9 @@ export const zhCN = {
     seoTitle: (site: string) => `${site} AEO 分析报告`,
     seoDesc: (site: string, score: number, grade: string) =>
       `${site} 的AI搜索优化(AEO/GEO)分析报告。综合评分 ${score}/100（${grade}级），五维分项评估，附详细优化建议。`,
+    top5Label: '优先级最高的 5 篇：',
+    examplePageLabel: '示例页面：',
+    geoTemplateLabel: 'GEO/AEO 内容模板：',
   },
   paywall: {
     title: '解锁完整报告',
