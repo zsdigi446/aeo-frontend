@@ -52,7 +52,7 @@ export const enUS = {
       '✅ Effect Measurement Plan',
       '✅ Word Report Download',
     ],
-    footerText: 'AI Search Optimization (aeo.miubox.com) — Make AI Understand Your Website Better',
+    footerText: 'AI Search Optimization (aeo.miubox.cn) — Make AI Understand Your Website Better',
     sitemap: 'Sitemap',
     freeVsFull: 'Free vs Full Comparison',
   },

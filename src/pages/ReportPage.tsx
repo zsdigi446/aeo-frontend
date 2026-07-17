@@ -78,7 +78,7 @@ export default function ReportPage() {
       <SEO
         title={t.report.seoTitle(meta.site_name)}
         description={t.report.seoDesc(meta.site_name, meta.total_score, meta.grade)}
-        canonical={`https://aeo.miubox.com/report/${id}`}
+        canonical={`https://aeo.miubox.cn/report/${id}`}
       />
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-30">

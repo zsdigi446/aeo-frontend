@@ -52,7 +52,7 @@ export const zhCN = {
       '✅ 效果衡量方案',
       '✅ Word 报告下载',
     ],
-    footerText: 'AI搜索优化（aeo.miubox.com）— 让 AI 更懂你的网站',
+    footerText: 'AI搜索优化（aeo.miubox.cn）— 让 AI 更懂你的网站',
     sitemap: '站点地图',
     freeVsFull: '免费版与完整版对比',
   },
