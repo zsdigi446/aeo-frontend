@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "what-is-aeo",
+    "title": "什么是 AEO？让 AI 搜索引擎主动推荐你的网站",
+    "category": "入门",
+    "summary": "AEO（答案引擎优化，也叫 GEO / AI搜索优化）是面向 ChatGPT、豆包、Perplexity 等 AI 回答系统的优化学科。本文讲清它和 SEO 的关系，以及为什么 2026 年你必须做。"
+  },
+  {
+    "slug": "ai-search-optimization-guide",
+    "title": "AI搜索优化完全指南：让 ChatGPT、豆包、微信搜一搜都推荐你",
+    "category": "入门",
+    "summary": "AI搜索优化（AEO / GEO）是让 ChatGPT、豆包、微信搜一搜等 AI 回答系统主动引用你内容的学科。本文讲清平台现状、AI 挑内容的机制，并给出从诊断到执行的可操作清单。"
+  },
+  {
+    "slug": "geo-vs-aeo",
+    "title": "GEO 和 AEO 到底有什么区别？一篇讲清两个名字",
+    "category": "入门",
+    "summary": "GEO（生成式引擎优化）和 AEO（答案引擎优化）常被混用。本文讲清两个名字的来源、是否为同一件事，以及什么时候该用哪个词，附 FAQ 澄清。"
+  },
+  {
+    "slug": "geo-vs-seo",
+    "title": "GEO vs SEO：生成式引擎优化完全指南",
+    "category": "进阶",
+    "summary": "GEO（生成式引擎优化，也称 AEO / AI搜索优化）不是 SEO 的替代品，而是它的延伸。本文给出可执行的 GEO 内容结构：场景覆盖、引用友好、实体化表达。"
+  },
+  {
+    "slug": "five-dimension-score",
+    "title": "拆解 AEO 五维评分：你的网站在 AI 眼里有多吃香",
+    "category": "实战",
+    "summary": "内容结构、决策内容、可信度、技术底座、页面体验——五维评分到底在测什么？无论叫它 AEO、GEO 还是 AI搜索优化，逐项给你优化清单。"
+  },
+  {
+    "slug": "wechat-search-aeo",
+    "title": "微信搜一搜 AEO 怎么做：让搜一搜和混元都推荐你",
+    "category": "实战",
+    "summary": "微信搜一搜背后是语义理解 + 混元大模型。本文讲清微信 AI 挑内容的四件事，给出公众号文章结构优化清单与 5 个被推荐动作。"
+  },
+  {
+    "slug": "independent-site-aeo",
+    "title": "独立站如何用 AEO 引流：不靠广告也能被 AI 推荐",
+    "category": "实战",
+    "summary": "独立站流量越来越贵，而 AI 推荐是同一条不靠广告的引流通道。本文给出让 ChatGPT/Perplexity/豆包引用你的 4 步与技术底座自检清单。"
+  },
+  {
+    "slug": "faq-aeo",
+    "title": "AEO 最常见的 10 个问题：从入门到落地一次讲清",
+    "category": "入门",
+    "summary": "AEO 和 SEO 是替代吗？GEO 和 AEO 哪个对？小团队要做吗？本文用 FAQ 形式一次答清最高频的疑问，方便转给团队与客户。"
+  }
+]

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEO 和 AEO 到底有什么区别？一篇讲清两个名字 | AEO 学院</title>
+  <meta name="description" content="GEO（生成式引擎优化）和 AEO（答案引擎优化）常被混用。本文讲清两个名字的来源、是否为同一件事，以及什么时候该用哪个词，附 FAQ 澄清。" />
+  <meta name="keywords" content="GEO、AEO、生成式引擎优化、答案引擎优化、术语区别、AI搜索优化" />
+  <link rel="canonical" href="https://aeo.miubox.cn/academy/articles/geo-vs-aeo.html" />
+  <meta property="og:url" content="https://aeo.miubox.cn/academy/articles/geo-vs-aeo.html" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  
+<style>
+.article { max-width: 760px; padding: 54px 22px 40px; }
+.article .eyebrow { color: var(--brand); font-weight: 700; letter-spacing: 1px; font-size: 13px; text-transform: uppercase; }
+.article h1 { font-size: 36px; line-height: 1.22; margin: 10px 0 8px; }
+.article .meta { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+.article .post-body { font-size: 17px; color: #25303c; }
+.article .post-body h2 { font-size: 24px; margin: 38px 0 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+.article .post-body p { margin: 0 0 16px; }
+.article .post-body ul, .article .post-body ol { margin: 0 0 18px; padding-left: 22px; }
+.article .post-body li { margin: 6px 0; }
+.article .post-body table.compare { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; }
+.article .post-body table.compare th, .article .post-body table.compare td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+.article .post-body table.compare th { background: #f0f3ff; }
+.article .post-body a { font-weight: 600; border-bottom: 1px solid rgba(59,91,255,.3); }
+.toc { background: #f3f5fc; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin: 22px 0 30px; }
+.toc .toc-title { font-weight: 800; font-size: 14px; margin-bottom: 8px; }
+.toc ol { margin: 0; padding-left: 20px; }
+.toc a { color: var(--muted); font-size: 14px; }
+.cta-inline { margin: 36px 0; padding: 18px 20px; border-radius: 12px; background: linear-gradient(135deg,#3b5bff,#6a3bff); color:#fff; font-weight:700; text-align:center; }
+.cta-inline a { color:#fff; border-bottom:1px solid rgba(255,255,255,.6); }
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">AEO 学院</a>
+    <nav>
+      <a href="../index.html#articles">文章</a>
+      <a class="cta-nav" href="https://aeo.miubox.cn" target="_blank" rel="noopener">免费测一下你的网站 →</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap article">
+  <p class="eyebrow">入门</p>
+  <h1>GEO 和 AEO 到底有什么区别？一篇讲清两个名字</h1>
+  <p class="meta">发布于 2026-07-17 · AEO 学院</p>
+  <nav class="toc"><div class="toc-title">本文目录</div><ol><li><a href="#一句话结论">一句话结论</a></li>
+<li><a href="#两个名字-从哪来">两个名字，从哪来</a></li>
+<li><a href="#真的有区别吗">真的有区别吗</a></li>
+<li><a href="#你到底该用哪个词">你到底该用哪个词</a></li>
+<li><a href="#一个提醒-geo-有歧义">一个提醒：GEO 有歧义</a></li>
+<li><a href="#常见问题">常见问题</a></li></ol></nav>
+  <div class="post-body">
+<h2 id="一句话结论">一句话结论</h2>
+<p><strong>GEO（Generative Engine Optimization，生成式引擎优化）和 AEO（Answer Engine Optimization，答案引擎优化）基本是一回事。</strong>它们都指「让 AI 回答系统愿意引用、推荐你的内容」这件事，只是名称来源不同。下面把来龙去脉讲清楚，省得你再被术语绕晕。</p>
+
+<h2 id="两个名字-从哪来">两个名字，从哪来</h2>
+<ul>
+  <li><strong>AEO（答案引擎优化）</strong>：更早出现，源于「语音助手 / 精选摘要」时代——用户不再点链接，而是直接要一个答案（Answer）。它强调「让内容成为 AI 的答案」。</li>
+  <li><strong>GEO（生成式引擎优化）</strong>：2023 年后随 ChatGPT、豆包这类「生成式 AI」爆发而流行。它强调「针对生成式回答引擎做优化」。</li>
+</ul>
+<p>一个侧重「答案」，一个侧重「生成式 AI」，但落到实操层面，要做的优化动作高度重合。</p>
+
+<h2 id="真的有区别吗">真的有区别吗</h2>
+<p>在方法论上几乎没有区别。无论是叫 AEO 还是 GEO，核心都是：场景化内容、引用友好、实体化表达、结构化语义、可信度信号。行业里也有人用 LLMO（大语言模型优化）、AIO（AI 优化）、AISEO，指的都是同一件事。所以你看到不同文章用不同词，不用纠结——它们在说同一件事。</p>
+
+<h2 id="你到底该用哪个词">你到底该用哪个词</h2>
+<table class="compare">
+  <thead><tr><th>场景</th><th>建议用词</th><th>原因</th></tr></thead>
+  <tbody>
+    <tr><td>对技术人群 / 海外</td><td>GEO</td><td>生成式 AI 语境更通用</td></tr>
+    <tr><td>国内 SEO / 官网转型圈</td><td>AEO</td><td>该圈子习惯用 AEO</td></tr>
+    <tr><td>对普通老板 / 小白</td><td>AI搜索优化</td><td>零歧义、最直白</td></tr>
+    <tr><td>你的产品命名</td><td>AEO</td><td>产品叫 AEO analyzer，品牌锚定</td></tr>
+  </tbody>
+</table>
+
+<h2 id="一个提醒-geo-有歧义">一个提醒：GEO 有歧义</h2>
+<p>在海外，GEO 也可能指 Geographic SEO（地理位置 / 本地 SEO）。虽然后来被「生成式引擎优化」这个新含义占用，但老 SEO 看到 GEO 仍可能联想到本地化。AEO 相对更干净。所以对外表达时，建议首次出现就写全称，例如「GEO（生成式引擎优化）」，避免歧义。</p>
+
+<h2 id="常见问题">常见问题</h2>
+<p><strong>Q：我应该只做一个吗？</strong><br>A：不用二选一。同一篇内容可以同时覆盖 AEO、GEO、AI搜索优化 三个词——搜索引擎和 AI 都会把它们当作同主题信号，反而强化你的主题权重。</p>
+<p><strong>Q：我们的产品叫 AEO analyzer，是不是只能用 AEO？</strong><br>A：品牌名锁 AEO，但内容里完全可以同时出现 GEO 和 AI搜索优化，吃满不同平台的搜索习惯。品牌一致性靠产品名与视觉，流量靠多词覆盖。</p>
+
+  </div>
+  <div class="cta-inline">想看你的网站在 AI 眼里打几分？<a href="https://aeo.miubox.cn" target="_blank" rel="noopener">去 aeo.miubox.cn 免费分析 →</a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>AEO 学院 · 独立内容站</span>
+    <a href="https://aeo.miubox.cn" target="_blank" rel="noopener">返回主站 aeo.miubox.cn</a>
+  </div>
+</footer>
+
+</body>
+</html>

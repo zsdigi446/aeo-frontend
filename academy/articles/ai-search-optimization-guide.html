@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI搜索优化完全指南：让 ChatGPT、豆包、微信搜一搜都推荐你 | AEO 学院</title>
+  <meta name="description" content="AI搜索优化（AEO / GEO）是让 ChatGPT、豆包、微信搜一搜等 AI 回答系统主动引用你内容的学科。本文讲清平台现状、AI 挑内容的机制，并给出从诊断到执行的可操作清单。" />
+  <meta name="keywords" content="AI搜索优化、AEO、GEO、微信搜一搜、豆包、内容结构" />
+  <link rel="canonical" href="https://aeo.miubox.cn/academy/articles/ai-search-optimization-guide.html" />
+  <meta property="og:url" content="https://aeo.miubox.cn/academy/articles/ai-search-optimization-guide.html" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  
+<style>
+.article { max-width: 760px; padding: 54px 22px 40px; }
+.article .eyebrow { color: var(--brand); font-weight: 700; letter-spacing: 1px; font-size: 13px; text-transform: uppercase; }
+.article h1 { font-size: 36px; line-height: 1.22; margin: 10px 0 8px; }
+.article .meta { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+.article .post-body { font-size: 17px; color: #25303c; }
+.article .post-body h2 { font-size: 24px; margin: 38px 0 12px; padding-top: 8px; border-top: 1px solid var(--line); }
+.article .post-body p { margin: 0 0 16px; }
+.article .post-body ul, .article .post-body ol { margin: 0 0 18px; padding-left: 22px; }
+.article .post-body li { margin: 6px 0; }
+.article .post-body table.compare { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; }
+.article .post-body table.compare th, .article .post-body table.compare td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+.article .post-body table.compare th { background: #f0f3ff; }
+.article .post-body a { font-weight: 600; border-bottom: 1px solid rgba(59,91,255,.3); }
+.toc { background: #f3f5fc; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin: 22px 0 30px; }
+.toc .toc-title { font-weight: 800; font-size: 14px; margin-bottom: 8px; }
+.toc ol { margin: 0; padding-left: 20px; }
+.toc a { color: var(--muted); font-size: 14px; }
+.cta-inline { margin: 36px 0; padding: 18px 20px; border-radius: 12px; background: linear-gradient(135deg,#3b5bff,#6a3bff); color:#fff; font-weight:700; text-align:center; }
+.cta-inline a { color:#fff; border-bottom:1px solid rgba(255,255,255,.6); }
+</style>
+
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html">AEO 学院</a>
+    <nav>
+      <a href="../index.html#articles">文章</a>
+      <a class="cta-nav" href="https://aeo.miubox.cn" target="_blank" rel="noopener">免费测一下你的网站 →</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap article">
+  <p class="eyebrow">入门</p>
+  <h1>AI搜索优化完全指南：让 ChatGPT、豆包、微信搜一搜都推荐你</h1>
+  <p class="meta">发布于 2026-07-17 · AEO 学院</p>
+  <nav class="toc"><div class="toc-title">本文目录</div><ol><li><a href="#什么是-ai搜索优化">什么是 AI搜索优化</a></li>
+<li><a href="#为什么所有平台都在内嵌-ai-搜索">为什么所有平台都在内嵌 AI 搜索</a></li>
+<li><a href="#ai-是怎么挑选内容的">AI 是怎么挑选内容的</a></li>
+<li><a href="#可操作的-ai搜索优化清单">可操作的 AI搜索优化清单</a></li>
+<li><a href="#一个最小可行动作">一个最小可行动作</a></li>
+<li><a href="#常见问题">常见问题</a></li></ol></nav>
+  <div class="post-body">
+<h2 id="什么是-ai搜索优化">什么是 AI搜索优化</h2>
+<p><strong>AI搜索优化</strong>，也常被叫做 AEO（Answer Engine Optimization，答案引擎优化）或 GEO（Generative Engine Optimization，生成式引擎优化），是指：为了让你的内容被 ChatGPT、豆包、Perplexity、微信搜一搜这些「AI 回答系统」在生成答案时主动引用、推荐，而进行的内容与结构优化。三个名字指同一件事，区别只在圈子习惯。</p>
+<p>传统 SEO 的目标是「让你的页面在搜索结果里排前面」；AI搜索优化的目标是「让 AI 在回答问题时，把你当成可信来源写进答案」。在 AI 时代，没有「第 12 名」——要么被引用，要么对用户而言不存在。</p>
+
+<h2 id="为什么所有平台都在内嵌-ai-搜索">为什么所有平台都在内嵌 AI 搜索</h2>
+<ul>
+  <li><strong>微信搜一搜</strong>：公众号、视频号内容直接进入腾讯混元大模型的答案来源，影响微信生态内的推荐与排名。</li>
+  <li><strong>小红书问一问</strong>：把社区笔记喂给 AI 生成总结性答案，消费决策类内容的被引用率很高。</li>
+  <li><strong>豆包 / 抖音</strong>：豆包回答常直接引用抖音视频与小红书内容，多模态内容形态比纯文字更被偏爱。</li>
+  <li><strong>Perplexity / ChatGPT</strong>：海外 AI 搜索已把「引用来源」做成产品核心，品牌曝光来自被引用而非被点击。</li>
+</ul>
+<p>这意味着：你在微信、小红书、抖音发的每一篇真实、结构化内容，都可能成为 AI 模型学习与引用的素材。</p>
+
+<h2 id="ai-是怎么挑选内容的">AI 是怎么挑选内容的</h2>
+<p>AI 回答的底层机制是 RAG（检索增强生成），大致三步：理解问题 → 检索并筛选来源 → 合成答案。普林斯顿大学 2024 年 KDD 研究显示，AI 平均只引用 2–7 个来源。进了这个圈子，你就在答案里；进不了，你对用户而言就不存在。这也是为什么做 AI搜索优化（AEO / GEO）比传统 SEO 更需要「质量穿透力」。</p>
+
+<h2 id="可操作的-ai搜索优化清单">可操作的 AI搜索优化清单</h2>
+<ul>
+  <li><strong>场景覆盖</strong>：把用户会问的「对比 / 替代 / 适合谁 / 不适合谁 / 使用场景 / FAQ」全部成文化，而不是只写品牌自嗨页。</li>
+  <li><strong>引用友好</strong>：给出明确结论、具体数据、可核验来源——AI 偏向引用有出处的段落。</li>
+  <li><strong>实体化表达</strong>：清楚写出你、你的产品、竞品分别是什么实体，关系如何，减少 AI 的歧义。</li>
+  <li><strong>结构化语义</strong>：用标题层级、列表、表格把信息分层，方便 AI 抽取关键句。</li>
+  <li><strong>可信度信号</strong>：作者署名与简介、资质、数据来源、第三方背书，都是 AI 信任你的依据。</li>
+</ul>
+
+<h2 id="一个最小可行动作">一个最小可行动作</h2>
+<p>挑一个你最想被推荐的高频问题，写一篇「XX 是什么 / 怎么选 / 和 YY 比哪个好」的清晰文章，带上数据来源与明确结论，再用 <a href="https://aeo.miubox.cn" target="_blank" rel="noopener">AEO 分析器</a> 验证场景覆盖率。这一步，已经跑赢大多数同行。</p>
+
+<h2 id="常见问题">常见问题</h2>
+<p><strong>Q：AI搜索优化、AEO、GEO 有什么区别？</strong><br>A：基本没有。它们是同一件事的不同叫法，选一个你受众熟悉的词即可，内容里可以同时覆盖三者。</p>
+<p><strong>Q：做了 AI搜索优化还要做 SEO 吗？</strong><br>A：要。SEO 是技术地基（可被抓取、有结构化数据、加载快），AI搜索优化在地基之上解决「被引用」。两者互补，不是替代。</p>
+
+  </div>
+  <div class="cta-inline">想看你的网站在 AI 眼里打几分？<a href="https://aeo.miubox.cn" target="_blank" rel="noopener">去 aeo.miubox.cn 免费分析 →</a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>AEO 学院 · 独立内容站</span>
+    <a href="https://aeo.miubox.cn" target="_blank" rel="noopener">返回主站 aeo.miubox.cn</a>
+  </div>
+</footer>
+
+</body>
+</html>
