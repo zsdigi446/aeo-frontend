@@ -16,8 +16,8 @@ export async function getReport(reportId: string, type: 'free' | 'full' = 'free'
   return data;
 }
 
-export async function createOrder(reportId: string): Promise<OrderResponse> {
-  const { data } = await api.post('/payment/create', { report_id: reportId });
+export async function createOrder(reportId: string, device: string = 'pc'): Promise<OrderResponse> {
+  const { data } = await api.post('/payment/create', { report_id: reportId, device });
   return data;
 }
 

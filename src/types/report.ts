@@ -169,7 +169,12 @@ export interface OrderResponse {
   amount: number;
   amount_yuan: number;
   status: string;
-  qr_note: string;
+  is_wechat?: boolean;
+  pay_type?: 'native' | 'h5';
+  code_url?: string;
+  h5_url?: string;
+  qr_note?: string;
+  error?: string;
 }
 
 export interface VerifyResponse {
