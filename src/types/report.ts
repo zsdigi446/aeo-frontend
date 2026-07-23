@@ -95,7 +95,26 @@ export interface Part7Template {
 
 export interface Part8Technical {
   title: string;
+  summary?: string;
   items: string[];
+}
+
+export interface GeoChecklistSection {
+  key: string;
+  name: string;
+  status: 'pass' | 'fail' | 'manual';
+  score: number | null;
+  findings: string[];
+  suggestions: string[];
+}
+
+export interface Part10GeoChecklist {
+  title: string;
+  principle: string;
+  passed_count: number;
+  auto_count: number;
+  geo_score: number;
+  sections: GeoChecklistSection[];
 }
 
 export interface MeasurementDim {
@@ -143,6 +162,7 @@ export interface FullReport extends FreeReport {
   part7_page_template: Part7Template;
   part8_technical: Part8Technical;
   part9_measurement: Part9Measurement;
+  part10_geo_checklist: Part10GeoChecklist;
 }
 
 export interface AnalyzeResponse {

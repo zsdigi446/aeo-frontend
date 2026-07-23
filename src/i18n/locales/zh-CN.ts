@@ -77,6 +77,11 @@ export const zhCN = {
     top5Label: '优先级最高的 5 篇：',
     examplePageLabel: '示例页面：',
     geoTemplateLabel: 'GEO/AEO 内容模板：',
+    // Part 10: GEO Technical Checklist
+    geoScoreLabel: 'GEO 技术合规分：{score}/100（自动检测 {passed}/{total} 项通过）',
+    geoPass: '通过',
+    geoFail: '待改进',
+    geoManual: '需人工验证',
   },
   paywall: {
     title: '解锁完整报告',
@@ -127,7 +132,7 @@ export const zhCN = {
     dimContentStructure: '内容结构',
     dimDecisionContent: '决策内容',
     dimCredibility: '可信度',
-    dimTechnicalBasis: '技术基础',
+    dimTechnicalBasis: 'GEO 技术基础',
     dimPageExperience: '页面体验',
     // 表头
     thDimension: '维度',

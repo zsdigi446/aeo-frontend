@@ -77,6 +77,11 @@ export const enUS = {
     top5Label: 'Top 5 Priority Pages: ',
     examplePageLabel: 'Example Page: ',
     geoTemplateLabel: 'GEO/AEO Content Template: ',
+    // Part 10: GEO Technical Checklist
+    geoScoreLabel: 'GEO Technical Compliance Score: {score}/100 ({passed}/{total} auto-checks passed)',
+    geoPass: 'Pass',
+    geoFail: 'Needs Work',
+    geoManual: 'Manual Check',
   },
   paywall: {
     title: 'Unlock the Full Report',

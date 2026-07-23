@@ -349,6 +349,9 @@ export default function ReportPage() {
             {/* Part 8: Technical */}
             {('part8_technical' in report) && (
               <ReportSection title={(report as FullReport).part8_technical.title}>
+                {('summary' in (report as FullReport).part8_technical) && (report as FullReport).part8_technical.summary && (
+                  <p className="text-sm text-gray-600 mb-3">{(report as FullReport).part8_technical.summary}</p>
+                )}
                 <ul className="space-y-2">
                   {(report as FullReport).part8_technical.items.map((item, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
@@ -359,6 +362,47 @@ export default function ReportPage() {
                 </ul>
               </ReportSection>
             )}
+
+            {/* Part 10: GEO Technical Checklist */}
+            {('part10_geo_checklist' in report) && (() => {
+              const geo = (report as FullReport).part10_geo_checklist;
+              return (
+                <ReportSection title={geo.title}>
+                  <div className="mb-4 rounded-xl bg-gradient-to-r from-emerald-50 to-blue-50 p-4">
+                    <p className="text-sm text-gray-700">{geo.principle}</p>
+                    <p className="mt-2 text-sm font-bold text-emerald-700">
+                      {t.report.geoScoreLabel.replace('{score}', String(geo.geo_score)).replace('{passed}', String(geo.passed_count)).replace('{total}', String(geo.auto_count))}
+                    </p>
+                  </div>
+                  <div className="space-y-3">
+                    {geo.sections.map((sec, i) => {
+                      const badge = sec.status === 'pass'
+                        ? { text: t.report.geoPass, cls: 'bg-emerald-100 text-emerald-700' }
+                        : sec.status === 'fail'
+                        ? { text: t.report.geoFail, cls: 'bg-red-100 text-red-700' }
+                        : { text: t.report.geoManual, cls: 'bg-amber-100 text-amber-700' };
+                      return (
+                        <div key={i} className="border border-gray-100 rounded-xl p-3">
+                          <div className="flex items-center justify-between gap-2">
+                            <h4 className="font-bold text-gray-800 text-sm">{sec.name}</h4>
+                            <span className={`text-xs px-2 py-0.5 rounded-full ${badge.cls}`}>{badge.text}</span>
+                          </div>
+                          {sec.findings.length > 0 && (
+                            <ul className="mt-2 space-y-1">
+                              {sec.findings.map((f, j) => (
+                                <li key={j} className="text-xs text-gray-600 flex items-start gap-1">
+                                  <span className="text-gray-400 mt-0.5">•</span>{f}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </ReportSection>
+              );
+            })()}
 
             {/* Part 9: Measurement */}
             {('part9_measurement' in report) && (
