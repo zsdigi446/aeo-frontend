@@ -174,12 +174,19 @@ export interface AnalyzeResponse {
   report?: FullReport;
 }
 
+export interface LockedSectionPreview {
+  key: string;
+  title: string;
+  preview: string[];
+}
+
 export interface ReportResponse {
   success: boolean;
   data: FreeReport | FullReport;
   is_full: boolean;
   total_parts?: number;
   free_parts?: number;
+  locked_preview?: LockedSectionPreview[];
   message?: string;
 }
 

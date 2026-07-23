@@ -36,7 +36,7 @@ export const zhCN = {
       '✅ 内容类型覆盖分析',
     ],
     freeLocked: [
-      '完整 9 部分报告',
+      '完整 10 部分报告',
       'Word 报告下载',
     ],
     paidIncluded: [
@@ -82,11 +82,14 @@ export const zhCN = {
     geoPass: '通过',
     geoFail: '待改进',
     geoManual: '需人工验证',
+    // 未解锁报告预览
+    lockedPreviewTitle: '完整报告还包含以下内容（部分预览）',
+    lockedPreviewHint: '解锁查看完整内容',
   },
   paywall: {
     title: '解锁完整报告',
-    viewedFree: '您已查看免费部分（前 4/9 部分）',
-    payHint: '支付后即可查看完整 9 部分报告并下载 Word 版本',
+    viewedFree: '您已查看免费部分（前 4/10 部分）',
+    payHint: '支付后即可查看完整 10 部分报告并下载 Word 版本',
     price: '¥99',
     unlock: '立即解锁完整报告',
     payMethods: '支持微信支付',
@@ -94,7 +97,7 @@ export const zhCN = {
   payment: {
     invalidId: '无效的报告 ID',
     title: '扫码支付解锁完整报告',
-    amountHint: '支付后即可查看完整 9 部分报告 + 下载 Word 版',
+    amountHint: '支付后即可查看完整 10 部分报告 + 下载 Word 版',
     qrNote: '请使用微信扫一扫完成支付',
     qrWallets: '微信支付',
     orderPrefix: '订单号：',

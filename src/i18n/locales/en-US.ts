@@ -36,7 +36,7 @@ export const enUS = {
       '✅ Content-Type Coverage Analysis',
     ],
     freeLocked: [
-      'Full 9-Part Report',
+      'Full 10-Part Report',
       'Word Report Download',
     ],
     paidIncluded: [
@@ -82,11 +82,14 @@ export const enUS = {
     geoPass: 'Pass',
     geoFail: 'Needs Work',
     geoManual: 'Manual Check',
+    // Locked report preview
+    lockedPreviewTitle: 'The full report also includes (partial preview)',
+    lockedPreviewHint: 'Unlock to view the full content',
   },
   paywall: {
     title: 'Unlock the Full Report',
-    viewedFree: 'You have viewed the free portion (first 4/9 parts)',
-    payHint: 'After payment, view the full 9-part report and download the Word version',
+    viewedFree: 'You have viewed the free portion (first 4/10 parts)',
+    payHint: 'After payment, view the full 10-part report and download the Word version',
     price: '¥99',
     unlock: 'Unlock Full Report Now',
     payMethods: 'Supports WeChat Pay',
@@ -94,7 +97,7 @@ export const enUS = {
   payment: {
     invalidId: 'Invalid report ID',
     title: 'Scan to Unlock the Full Report',
-    amountHint: 'After payment: full 9-part report + Word download',
+    amountHint: 'After payment: full 10-part report + Word download',
     qrNote: 'Please scan the QR code with WeChat to complete payment',
     qrWallets: 'WeChat Pay',
     orderPrefix: 'Order ID: ',

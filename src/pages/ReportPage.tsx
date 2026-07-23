@@ -7,7 +7,7 @@ import Paywall from '../components/Paywall';
 import SEO from '../components/SEO';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { useI18n } from '../i18n';
-import type { FreeReport, FullReport } from '../types/report';
+import type { FreeReport, FullReport, LockedSectionPreview } from '../types/report';
 
 export default function ReportPage() {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +18,7 @@ export default function ReportPage() {
   const [isFull, setIsFull] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [lockedPreview, setLockedPreview] = useState<LockedSectionPreview[]>([]);
 
   // 报告由后端按 lang 返回（已翻译），直接作为渲染数据源
   const report = rawReport;
@@ -36,6 +37,7 @@ export default function ReportPage() {
       const res = await getReport(reportId, isPaid ? 'full' : 'free', lang);
       setRawReport(res.data);
       setIsFull(res.is_full);
+      setLockedPreview(res.locked_preview || []);
       if (isPaid && res.is_full) {
         sessionStorage.setItem(`aeo_paid_${reportId}`, '1');
       }
@@ -232,6 +234,21 @@ export default function ReportPage() {
             ))}
           </div>
         </ReportSection>
+
+        {/* 未解锁章节预览：展示标题 + 近 3 行内容，其余加遮罩隐藏并提示解锁 */}
+        {!isFull && lockedPreview.length > 0 && (
+          <div className="space-y-4">
+            <h2 className="text-sm font-bold text-gray-500 px-1 flex items-center gap-2">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              {t.report.lockedPreviewTitle}
+            </h2>
+            {lockedPreview.map((sec) => (
+              <LockedTeaser key={sec.key} section={sec} onUnlock={() => navigate(`/payment/${id}`)} />
+            ))}
+          </div>
+        )}
 
         {/* Paywall */}
         {!isFull && (
@@ -436,6 +453,46 @@ export default function ReportPage() {
             </div>
           </>
         )}
+      </div>
+    </div>
+  );
+}
+
+/** 未解锁章节的预览卡片：展示标题与近 3 行内容，其余内容加遮罩隐藏并提示解锁 */
+function LockedTeaser({ section, onUnlock }: { section: LockedSectionPreview; onUnlock: () => void }) {
+  const { t } = useI18n();
+  return (
+    <div className="rounded-xl border border-gray-100 bg-white p-5">
+      <h3 className="font-bold text-gray-800 text-sm mb-2 flex items-center gap-2">
+        <svg className="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        {section.title}
+      </h3>
+      <ul className="space-y-1 mb-3">
+        {section.preview.map((line, i) => (
+          <li key={i} className="text-sm text-gray-500 leading-relaxed">{line}</li>
+        ))}
+      </ul>
+      {/* 遮罩隐藏的剩余内容 + 解锁提示 */}
+      <div className="relative">
+        <div className="space-y-2 opacity-30 select-none pointer-events-none">
+          <div className="h-3 bg-gray-300 rounded w-full"></div>
+          <div className="h-3 bg-gray-300 rounded w-5/6"></div>
+          <div className="h-3 bg-gray-300 rounded w-3/4"></div>
+          <div className="h-3 bg-gray-300 rounded w-4/6"></div>
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-white/0 via-white/60 to-white/95">
+          <button
+            onClick={onUnlock}
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors shadow cursor-pointer"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            {t.report.lockedPreviewHint}
+          </button>
+        </div>
       </div>
     </div>
   );
